@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Naif Aldosari — Software Developer</title>
+<title>Naif Aldosari - Software Developer</title>
 <meta name="description" content="Senior Computer Science student building web and iOS applications, with hands-on experience in applied AI.">
 
 <style>
 /* ============================================================
    EDIT GUIDE
-   · Add project      → copy an <article class="card"> in #work
-   · Add certificate  → copy an <li class="cert"> in #certs
+   · Add project      → copy an <article class="card" style="--i:0"> in #work
+   · Add certificate  → copy an <li class="cert" style="--i:0"> in #certs
    · Replace artwork  → put <img src="shots/x.png" alt="…"> inside .shot
    · Accent colour    → --acc
    · Every text node has an .en and an .ar twin; keep both in sync
@@ -46,7 +46,7 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px}
 
 /* ---------- language switching ---------- */
-/* hide only — never force a display value, so each element keeps its natural one.
+/* hide only, never force a display value, so each element keeps its natural one.
    Two-part selector outranks .role{display:flex} etc. further down. */
 html[data-lang="en"] .ar,
 html[data-lang="ar"] .en{display:none}
@@ -84,7 +84,7 @@ nav a::after{content:"";position:absolute;inset-inline-start:0;bottom:-4px;width
 nav a:hover,nav a:focus-visible{color:var(--ink)}
 nav a:hover::after{width:100%}
 #lang{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--acc);
-      background:transparent;border:1px solid var(--line);border-radius:3px;
+      background:transparent;border:1px solid var(--line);border-radius:0;
       padding:.32rem .7rem;cursor:pointer;transition:border-color .2s,background .2s}
 #lang:hover{border-color:var(--acc);background:#E0A03C12}
 @media(max-width:760px){nav ul{display:none}}
@@ -99,8 +99,13 @@ html[dir="rtl"] .eyebrow{--fade:left}
 h2{font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:600;letter-spacing:-.015em;margin-bottom:2.1rem}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--e),transform .7s var(--e)}
 .reveal.on{opacity:1;transform:none}
+/* ordered entrance: children arrive in sequence, not all at once */
+.stagger>*{opacity:0;transform:translateY(14px)}
+.stagger.on>*{opacity:1;transform:none;
+  transition:opacity .55s var(--e),transform .55s var(--e);
+  transition-delay:calc(var(--i,0)*90ms)}
 
-/* ---------- hero — type is the hero ---------- */
+/* ---------- hero: type is the hero ---------- */
 header{width:var(--wrap);margin-inline:auto;padding:clamp(3rem,9vh,5.5rem) 0 1rem;
        position:relative;z-index:1}
 header h1{font-size:clamp(3rem,13vw,9.5rem);font-weight:600;line-height:.92;
@@ -122,7 +127,7 @@ header p.lede{max-width:56ch;color:var(--ink-2);margin-top:1.5rem;font-size:1.05
 html[data-lang="ar"] header p.lede{font-size:1.12rem;line-height:1.9;max-width:52ch}
 .cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.1rem;animation-delay:.54s}
 .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.64rem 1.2rem;
-     border:1px solid var(--line);border-radius:3px;text-decoration:none;font-size:.87rem;
+     border:1px solid var(--line);border-radius:0;text-decoration:none;font-size:.87rem;
      color:var(--ink);transition:border-color .2s var(--e),color .2s var(--e),
      background .2s var(--e),transform .2s var(--e)}
 .btn:hover,.btn:focus-visible{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
@@ -134,9 +139,9 @@ html[data-lang="ar"] header p.lede{font-size:1.12rem;line-height:1.9;max-width:5
      box-shadow:0 0 0 0 #E0A03C99;animation:pulse 2.4s ease-out infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
 
-/* ---------- project cards — 2 per row, balanced ---------- */
+/* ---------- project cards: 2 per row ---------- */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,25rem),1fr));gap:1.1rem}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:5px;overflow:hidden;
+.card{background:var(--surface);border:1px solid var(--line);border-radius:0;overflow:hidden;
       display:flex;flex-direction:column;transition:border-color .3s var(--e),
       transform .3s var(--e),box-shadow .3s var(--e)}
 .card:hover{border-color:#3A4348;transform:translateY(-4px);box-shadow:0 16px 40px -22px #000}
@@ -159,7 +164,7 @@ html[data-lang="ar"] .card p{font-size:1rem;line-height:1.85}
 .links .none{font-size:.83rem;color:var(--ink-3)}
 .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:auto;padding-top:.6rem}
 .tag{font-family:var(--mono);font-size:.69rem;color:var(--ink-3);border:1px solid var(--line);
-     border-radius:2px;padding:.16rem .46rem;transition:color .2s,border-color .2s;direction:ltr}
+     border-radius:0;padding:.16rem .46rem;transition:color .2s,border-color .2s;direction:ltr}
 .card:hover .tag{color:var(--ink-2);border-color:#2C3438}
 
 /* ---------- rows ---------- */
@@ -176,7 +181,7 @@ html[data-lang="ar"] .row ul{font-size:1rem;line-height:1.85}
 
 /* ---------- skills ---------- */
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1.4rem}
-.sk{border:1px solid var(--line);border-radius:4px;padding:1.2rem;background:var(--surface);
+.sk{border:1px solid var(--line);border-radius:0;padding:1.2rem;background:var(--surface);
     transition:border-color .3s var(--e)}
 .sk:hover{border-color:#333C40}
 .sk h4{font-family:var(--mono);font-size:.73rem;letter-spacing:.11em;color:var(--acc);
@@ -187,7 +192,7 @@ html[dir="rtl"] .sk p{text-align:right}
 /* ---------- certificates ---------- */
 .certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1.1rem;
        list-style:none}
-.cert{border:1px solid var(--line);border-radius:5px;background:var(--surface);padding:1.4rem;
+.cert{border:1px solid var(--line);border-radius:0;background:var(--surface);padding:1.4rem;
       display:flex;flex-direction:column;gap:.55rem;position:relative;overflow:hidden;
       transition:border-color .3s var(--e),transform .3s var(--e)}
 .cert:hover{border-color:#3A4348;transform:translateY(-3px)}
@@ -199,12 +204,12 @@ html[dir="rtl"] .sk p{text-align:right}
 .cert .n{font-size:.98rem;font-weight:600;line-height:1.35}
 .cert small{color:var(--ink-3);font-size:.84rem;display:block;margin-top:.15rem}
 .cert .when{margin-top:auto;padding-top:.4rem}
-.cert .prog{height:2px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:.5rem}
-.cert .prog i{display:block;height:100%;width:62%;background:var(--acc);border-radius:2px}
+.cert .prog{height:2px;background:var(--line);border-radius:0;overflow:hidden;margin-top:.5rem}
+.cert .prog i{display:block;height:100%;width:62%;background:var(--acc);border-radius:0}
 
 /* ---------- contact ---------- */
 #contact{padding-bottom:5rem}
-.box{border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:2.5rem;
+.box{border:1px solid var(--line);border-radius:0;background:var(--surface);padding:2.5rem;
      display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.6rem;align-items:center;
      position:relative;overflow:hidden}
 .box::after{content:"";position:absolute;inset-inline-end:-60px;top:-60px;width:220px;height:220px;
@@ -219,7 +224,7 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  .reveal,.stagger>*{opacity:1;transform:none}
   header h1 .l>span{transform:none}
   .fade{opacity:1}
   #bar{display:none}
@@ -276,10 +281,10 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
 <section id="work" class="reveal">
   <p class="eyebrow"><span class="en">SELECTED WORK</span><span class="ar">مختارات</span></p>
   <h2><span class="en">Projects</span><span class="ar">ما بنيتُه</span></h2>
-  <div class="grid">
+  <div class="grid stagger">
 
     <!-- ▸ PROJECT -->
-    <article class="card">
+    <article class="card" style="--i:1">
       <div class="shot">
         <svg viewBox="0 0 320 180" aria-hidden="true">
           <g fill="none" stroke="#E0A03C" stroke-width="1.2">
@@ -306,14 +311,14 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
           <span class="en">Team of 4</span><span class="ar">فريق من <span class="lat">4</span></span>
           <span class="en">Graduation Project</span><span class="ar">مشروع التخرّج</span>
         </div>
-        <p class="en">A bilingual platform with three role-based portals — tourist, provider and
-        admin — built against a NestJS REST API. I built the complete front end and wrote the
+        <p class="en">A bilingual platform with three role-based portals (tourist, provider and
+        admin) built against a NestJS REST API. I built the complete front end and wrote the
         end-to-end test suite covering all three portals.</p>
-        <p class="ar">منصّة بلغتين وثلاث بوابات — زائر ومزوّد ومشرف — تقف على واجهة برمجية واحدة.
+        <p class="ar">منصّة بلغتين وثلاث بوابات: زائر ومزوّد ومشرف، تقف على واجهة برمجية واحدة.
         بنيتُ الواجهة الأمامية كاملة، وكتبتُ اختبارات المسار الكامل للبوابات الثلاث.</p>
         <div class="links">
-          <span class="none en">Private — university project</span>
-          <span class="none ar">مغلق — مشروع جامعي</span>
+          <span class="none en">Private, university project</span>
+          <span class="none ar">مغلق، مشروع جامعي</span>
         </div>
         <div class="tags"><span class="tag">Vue 3</span><span class="tag">TypeScript</span>
         <span class="tag">Pinia</span><span class="tag">Vite</span><span class="tag">NestJS</span>
@@ -321,7 +326,7 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
       </div>
     </article>
 
-    <article class="card">
+    <article class="card" style="--i:2">
       <div class="shot">
         <svg viewBox="0 0 320 180" aria-hidden="true">
           <g stroke="#E0A03C" stroke-width="1.2" fill="none">
@@ -341,7 +346,7 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
       </div>
       <div class="body">
         <div class="top">
-          <h3><span class="lat">Kafeet</span> <span class="ar">— كَفيت</span></h3>
+          <h3><span class="lat">Kafeet</span> <span class="ar">كَفيت</span></h3>
           <span class="when lat">2026</span>
         </div>
         <div class="role">
@@ -363,7 +368,7 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
       </div>
     </article>
 
-    <article class="card">
+    <article class="card" style="--i:3">
       <div class="shot">
         <svg viewBox="0 0 320 180" aria-hidden="true">
           <g fill="#E0A03C">
@@ -383,7 +388,7 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
       </div>
       <div class="body">
         <div class="top">
-          <h3><span class="lat">Mulhem</span> <span class="ar">— ملهم</span></h3>
+          <h3><span class="lat">Mulhem</span> <span class="ar">ملهم</span></h3>
           <span class="when lat">2025</span>
         </div>
         <div class="role">
@@ -396,15 +401,15 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
         <p class="ar">تطبيق آيفون يساعد المصابين بفرط الحركة وتشتّت الانتباه على ترتيب أفكارهم، ونموذج
         لغوي يقترح عليهم ما يناسب حالتهم. أجريتُ بحث المستخدم وصمّمتُ الواجهة، ثم بنيناه مع الفريق.</p>
         <div class="links">
-          <span class="none en">Team repository — not public under my account</span>
-          <span class="none ar">مستودع الفريق — ليس تحت حسابي</span>
+          <span class="none en">Team repository, not public under my account</span>
+          <span class="none ar">مستودع الفريق، ليس تحت حسابي</span>
         </div>
         <div class="tags"><span class="tag">Swift</span><span class="tag">SwiftUI</span>
         <span class="tag">Core ML</span><span class="tag">Create ML</span></div>
       </div>
     </article>
 
-    <article class="card">
+    <article class="card" style="--i:4">
       <div class="shot">
         <svg viewBox="0 0 320 180" aria-hidden="true">
           <g stroke="#E0A03C" stroke-width="1" opacity=".45" fill="none">
@@ -453,12 +458,11 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
 </section>
 
 <section id="experience" class="reveal">
-  <p class="eyebrow"><span class="en">BACKGROUND</span><span class="ar">الخلفية</span></p>
   <h2><span class="en">Experience &amp; Education</span><span class="ar">الخبرة والتعليم</span></h2>
 
   <div class="row">
     <h3><span class="en">Apple Developer Academy, Tuwaiq Academy</span><span class="ar">أكاديمية آبل للمطوّرين، أكاديمية طويق</span></h3>
-    <span class="when"><span class="en lat">JUL 2025 — AUG 2025</span><span class="ar">يوليو — أغسطس <span class="lat">2025</span></span></span>
+    <span class="when"><span class="en lat">JUL 2025 - AUG 2025</span><span class="ar">يوليو - أغسطس <span class="lat">2025</span></span></span>
     <div class="meta">
       <span class="en">AI Foundation Intern · 1st Cohort · Riyadh</span>
       <span class="ar">متدرّب البرنامج التأسيسي للذكاء الاصطناعي · الدفعة الأولى · الرياض</span>
@@ -488,16 +492,15 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
 </section>
 
 <section id="skills" class="reveal">
-  <p class="eyebrow"><span class="en">TOOLKIT</span><span class="ar">الأدوات</span></p>
   <h2><span class="en">Skills</span><span class="ar">المهارات</span></h2>
-  <div class="skills">
-    <div class="sk"><h4><span class="en">LANGUAGES</span><span class="ar">لغات البرمجة</span></h4>
+  <div class="skills stagger">
+    <div class="sk" style="--i:0"><h4><span class="en">LANGUAGES</span><span class="ar">لغات البرمجة</span></h4>
       <p>Python, JavaScript, TypeScript, Swift, SQL</p></div>
-    <div class="sk"><h4><span class="en">WEB</span><span class="ar">الويب</span></h4>
+    <div class="sk" style="--i:1"><h4><span class="en">WEB</span><span class="ar">الويب</span></h4>
       <p>Vue 3, Node.js, NestJS, REST APIs, HTML, CSS</p></div>
-    <div class="sk"><h4><span class="en">MOBILE</span><span class="ar">التطبيقات</span></h4>
+    <div class="sk" style="--i:2"><h4><span class="en">MOBILE</span><span class="ar">التطبيقات</span></h4>
       <p>Swift, SwiftUI, Core ML</p></div>
-    <div class="sk"><h4><span class="en">TOOLS &amp; PRACTICES</span><span class="ar">أدوات وممارسات</span></h4>
+    <div class="sk" style="--i:3"><h4><span class="en">TOOLS &amp; PRACTICES</span><span class="ar">أدوات وممارسات</span></h4>
       <p>Git, GitHub, Playwright, Agile, TDD</p></div>
   </div>
 </section>
@@ -505,33 +508,33 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
 <section id="certs" class="reveal">
   <p class="eyebrow"><span class="en">CREDENTIALS</span><span class="ar">الاعتمادات</span></p>
   <h2><span class="en">Certifications</span><span class="ar">الشهادات</span></h2>
-  <ul class="certs">
+  <ul class="certs stagger">
 
-    <li class="cert">
+    <li class="cert" style="--i:1">
       <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
         <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.2" opacity=".55"/>
         <path d="M13 20l5 5 9-10" fill="none" stroke="#E0A03C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <div>
-        <span class="n"><span class="en">Apple AI Foundation Program — 1st Cohort</span><span class="ar">برنامج آبل التأسيسي للذكاء الاصطناعي — الدفعة الأولى</span></span>
+        <span class="n"><span class="en">Apple AI Foundation Program, 1st Cohort</span><span class="ar">برنامج آبل التأسيسي للذكاء الاصطناعي، الدفعة الأولى</span></span>
         <small><span class="en">Apple Developer Academy with Tuwaiq Academy</span><span class="ar">أكاديمية آبل للمطوّرين مع أكاديمية طويق</span></small>
       </div>
       <span class="when"><span class="en lat">AUG 2025</span><span class="ar">أغسطس <span class="lat">2025</span></span></span>
     </li>
 
-    <li class="cert">
+    <li class="cert" style="--i:2">
       <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
         <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.2" opacity=".55"/>
         <path d="M13 20l5 5 9-10" fill="none" stroke="#E0A03C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <div>
         <span class="n"><span class="en">Computer Vision for Developers</span><span class="ar">الرؤية الحاسوبية للمطوّرين</span></span>
-        <small><span class="en">SDAIA — Saudi Data and AI Authority</span><span class="ar">سدايا — الهيئة السعودية للبيانات والذكاء الاصطناعي</span></small>
+        <small><span class="en">SDAIA, Saudi Data and AI Authority</span><span class="ar">سدايا، الهيئة السعودية للبيانات والذكاء الاصطناعي</span></small>
       </div>
       <span class="when"><span class="en lat">MAR 2026</span><span class="ar">مارس <span class="lat">2026</span></span></span>
     </li>
 
-    <li class="cert">
+    <li class="cert" style="--i:3">
       <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
         <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.2" opacity=".35"/>
         <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="58 94" transform="rotate(-90 20 20)"/>
@@ -596,9 +599,9 @@ footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;fl
         if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); }
       });
     }, { threshold: 0.08 });
-    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+    document.querySelectorAll(".reveal, .stagger").forEach(function (el) { io.observe(el); });
   } else {
-    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("on"); });
+    document.querySelectorAll(".reveal, .stagger").forEach(function (el) { el.classList.add("on"); });
   }
 })();
 </script>
