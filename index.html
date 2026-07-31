@@ -46,11 +46,10 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px}
 
 /* ---------- language switching ---------- */
-.ar{display:none}
+/* hide only — never force a display value, so each element keeps its natural one.
+   Two-part selector outranks .role{display:flex} etc. further down. */
+html[data-lang="en"] .ar,
 html[data-lang="ar"] .en{display:none}
-html[data-lang="ar"] .ar{display:revert}
-html[data-lang="ar"] li.ar,html[data-lang="ar"] p.ar,html[data-lang="ar"] div.ar{display:block}
-html[data-lang="ar"] span.ar{display:inline}
 html[data-lang="ar"] body{font-family:var(--ar-text)}
 /* Arabic typography: display face for headings, sans for UI/labels */
 html[data-lang="ar"] h1,html[data-lang="ar"] h2,html[data-lang="ar"] h3,
