@@ -1,0 +1,472 @@
+<title>Naif Aldosari — Software Developer</title>
+
+<style>
+/* ============================================================
+   EDIT GUIDE
+   · Add project      → copy an <article class="card"> in #work
+   · Add certificate  → copy an <li> in #certs
+   · Replace artwork  → put <img src="shots/name.png" alt="…"> inside .shot
+   · Change accent    → --acc
+   ============================================================ */
+:root{
+  --bg:#0A0C0D; --surface:#101315; --surface-2:#151A1C; --line:#1F2528;
+  --ink:#E9EBEB; --ink-2:#98A1A4; --ink-3:#616A6D;
+  --acc:#E0A03C; --acc-2:#F0C173;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --wrap:min(1120px,92vw);
+  --e:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;
+     line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+::selection{background:var(--acc);color:#000}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+
+/* ambient grain + glow, fixed so it never scrolls */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(900px 500px at 78% -8%,#E0A03C14,transparent 68%),
+             radial-gradient(700px 420px at 4% 22%,#E0A03C0A,transparent 62%);}
+
+/* ---------- scroll progress ---------- */
+#bar{position:fixed;top:0;left:0;height:2px;width:0;z-index:40;
+     background:linear-gradient(90deg,var(--acc),var(--acc-2));transition:width .1s linear}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:30;background:rgba(10,12,13,.8);
+    backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .in{width:var(--wrap);margin-inline:auto;display:flex;align-items:center;
+        justify-content:space-between;gap:1rem;height:62px}
+nav .mark{font-family:var(--mono);font-size:.82rem;letter-spacing:.16em;color:var(--acc);
+          text-decoration:none}
+nav ul{display:flex;gap:1.7rem;list-style:none}
+nav a{text-decoration:none;font-size:.86rem;color:var(--ink-2);position:relative;
+      transition:color .2s var(--e)}
+nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;
+             background:var(--acc);transition:width .26s var(--e)}
+nav a:hover,nav a:focus-visible{color:var(--ink)}
+nav a:hover::after{width:100%}
+@media(max-width:680px){nav ul{display:none}}
+
+/* ---------- shared ---------- */
+section{width:var(--wrap);margin-inline:auto;padding:6rem 0 0;position:relative;z-index:1}
+.eyebrow{font-family:var(--mono);font-size:.73rem;letter-spacing:.2em;color:var(--acc);
+         margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem}
+.eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+h2{font-size:clamp(1.55rem,3.1vw,2.1rem);font-weight:600;letter-spacing:-.015em;margin-bottom:2.1rem}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--e),transform .7s var(--e)}
+.reveal.on{opacity:1;transform:none}
+
+/* ---------- hero ---------- */
+header{width:var(--wrap);margin-inline:auto;padding:clamp(3.5rem,10vh,6.5rem) 0 1rem;
+       position:relative;z-index:1}
+header h1{font-size:clamp(2.5rem,7.6vw,4.8rem);font-weight:600;line-height:1.02;
+          letter-spacing:-.03em}
+header h1 .l{display:block;overflow:hidden}
+header h1 .l>span{display:block;transform:translateY(105%);
+                  animation:rise .95s var(--e) forwards}
+header h1 .l:nth-child(2)>span{animation-delay:.1s}
+header h1 em{font-style:normal;color:var(--acc)}
+@keyframes rise{to{transform:none}}
+.fade{opacity:0;animation:fade .8s var(--e) forwards}
+@keyframes fade{to{opacity:1}}
+header .role{font-family:var(--mono);font-size:.88rem;letter-spacing:.12em;color:var(--ink-2);
+             margin-top:1.2rem;animation-delay:.34s}
+header p.lede{max-width:58ch;color:var(--ink-2);margin-top:1.4rem;font-size:1.04rem;
+              animation-delay:.44s}
+.cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.1rem;animation-delay:.54s}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.64rem 1.2rem;
+     border:1px solid var(--line);border-radius:3px;text-decoration:none;font-size:.87rem;
+     color:var(--ink);transition:border-color .2s var(--e),color .2s var(--e),
+     background .2s var(--e),transform .2s var(--e)}
+.btn:hover,.btn:focus-visible{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
+.btn.solid{background:var(--acc);color:#000;border-color:var(--acc);font-weight:500}
+.btn.solid:hover,.btn.solid:focus-visible{background:transparent;color:var(--acc)}
+.avail{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.7rem;
+       font-family:var(--mono);font-size:.77rem;color:var(--ink-3);animation-delay:.64s}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex:none;
+     box-shadow:0 0 0 0 #E0A03C99;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+
+/* ---------- project cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr));gap:1.1rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:5px;overflow:hidden;
+      display:flex;flex-direction:column;transition:border-color .3s var(--e),
+      transform .3s var(--e),box-shadow .3s var(--e)}
+.card:hover{border-color:#3A4348;transform:translateY(-4px);
+            box-shadow:0 16px 40px -22px #000}
+/* generated artwork — replace with <img> when you have a real screenshot */
+.shot{aspect-ratio:16/9;background:var(--surface-2);border-bottom:1px solid var(--line);
+      position:relative;overflow:hidden;display:grid;place-items:center}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot svg{width:100%;height:100%;display:block}
+.card:hover .shot svg [data-anim]{animation-play-state:running}
+.body{padding:1.5rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.top h3{font-size:1.06rem;font-weight:600;line-height:1.3}
+.when{font-family:var(--mono);font-size:.74rem;color:var(--ink-3);white-space:nowrap}
+.role{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--acc);
+      display:flex;flex-wrap:wrap;gap:.3rem .7rem}
+.card p{color:var(--ink-2);font-size:.92rem}
+.links{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:.1rem}
+.links a{font-size:.82rem;color:var(--acc);text-decoration:none;
+         border-bottom:1px solid transparent;transition:border-color .2s}
+.links a:hover,.links a:focus-visible{border-bottom-color:var(--acc)}
+.links .none{font-size:.82rem;color:var(--ink-3)}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:auto;padding-top:.6rem}
+.tag{font-family:var(--mono);font-size:.69rem;color:var(--ink-3);border:1px solid var(--line);
+     border-radius:2px;padding:.16rem .46rem;transition:color .2s,border-color .2s}
+.card:hover .tag{color:var(--ink-2);border-color:#2C3438}
+
+/* ---------- rows ---------- */
+.row{border-top:1px solid var(--line);padding:1.5rem 0;display:grid;
+     grid-template-columns:1fr auto;gap:.3rem 1.5rem;align-items:baseline;
+     transition:padding-inline-start .3s var(--e)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row:hover{padding-inline-start:.7rem}
+.row h3{font-size:1.03rem;font-weight:600}
+.row .meta{grid-column:1/-1;font-size:.87rem;color:var(--acc);margin-top:.1rem}
+.row ul{grid-column:1/-1;margin-top:.75rem;padding-inline-start:1.05rem;color:var(--ink-2);
+        font-size:.92rem;display:flex;flex-direction:column;gap:.4rem}
+
+/* ---------- skills ---------- */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1.4rem}
+.sk{border:1px solid var(--line);border-radius:4px;padding:1.2rem;background:var(--surface);
+    transition:border-color .3s var(--e)}
+.sk:hover{border-color:#333C40}
+.sk h4{font-family:var(--mono);font-size:.73rem;letter-spacing:.11em;color:var(--acc);
+       margin-bottom:.65rem}
+.sk p{color:var(--ink-2);font-size:.91rem}
+
+/* ---------- certificates ---------- */
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1.1rem;
+       list-style:none}
+.cert{border:1px solid var(--line);border-radius:5px;background:var(--surface);padding:1.4rem;
+      display:flex;flex-direction:column;gap:.55rem;position:relative;overflow:hidden;
+      transition:border-color .3s var(--e),transform .3s var(--e)}
+.cert:hover{border-color:#3A4348;transform:translateY(-3px)}
+.cert::before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:var(--acc);
+              transform:scaleY(0);transform-origin:top;transition:transform .4s var(--e)}
+.cert:hover::before{transform:scaleY(1)}
+.cert .seal{width:34px;height:34px;flex:none}
+.cert .n{font-size:.97rem;font-weight:600;line-height:1.35}
+.cert small{color:var(--ink-3);font-size:.83rem;display:block;margin-top:.15rem}
+.cert .when{margin-top:auto;padding-top:.4rem}
+.cert .prog{height:2px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:.5rem}
+.cert .prog i{display:block;height:100%;width:62%;background:var(--acc);border-radius:2px}
+
+/* ---------- contact ---------- */
+#contact{padding-bottom:5rem}
+.box{border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:2.5rem;
+     display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.6rem;align-items:center;
+     position:relative;overflow:hidden}
+.box::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;
+            background:radial-gradient(circle,#E0A03C18,transparent 68%);pointer-events:none}
+.box h2{margin-bottom:.45rem}
+.box p{color:var(--ink-2);font-size:.94rem}
+footer{border-top:1px solid var(--line);margin-top:2rem;position:relative;z-index:1}
+footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;flex-wrap:wrap;
+           justify-content:space-between;gap:.6rem;font-family:var(--mono);font-size:.74rem;
+           color:var(--ink-3)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  header h1 .l>span{transform:none}
+  .fade{opacity:1}
+  #bar{display:none}
+}
+</style>
+
+<div id="bar"></div>
+
+<nav>
+  <div class="in">
+    <a class="mark" href="#top">NFA</a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certs">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header id="top">
+  <h1><span class="l"><span>Naif</span></span><span class="l"><span>Aldosari<em>.</em></span></span></h1>
+  <div class="role fade">SOFTWARE DEVELOPER · RIYADH</div>
+  <p class="lede fade">Senior Computer Science student building web and iOS applications, with
+  hands-on experience in applied artificial intelligence. Selected as 1 of 66 participants
+  nationally for the first cohort of the Apple AI Foundation Program.</p>
+  <div class="cta fade">
+    <a class="btn solid" href="Naif_Aldosari_CV.pdf">Download CV</a>
+    <a class="btn" href="https://github.com/na2faldosari">GitHub</a>
+    <a class="btn" href="https://linkedin.com/in/naif-aldosarii">LinkedIn</a>
+  </div>
+  <div class="avail fade"><span class="dot"></span> Graduating December 2026</div>
+</header>
+
+<section id="work" class="reveal">
+  <p class="eyebrow">SELECTED WORK</p>
+  <h2>Projects</h2>
+  <div class="grid">
+
+    <!-- ▸ PROJECT — copy this whole <article> to add one -->
+    <article class="card">
+      <div class="shot">
+        <!-- three role-based portals -->
+        <svg viewBox="0 0 320 180" aria-hidden="true">
+          <g fill="none" stroke="#E0A03C" stroke-width="1.2">
+            <rect x="34" y="52" width="68" height="76" rx="3" opacity=".85"/>
+            <rect x="126" y="42" width="68" height="96" rx="3"/>
+            <rect x="218" y="52" width="68" height="76" rx="3" opacity=".85"/>
+          </g>
+          <g fill="#E0A03C" opacity=".5">
+            <rect x="42" y="62" width="36" height="2.4" rx="1"/><rect x="42" y="70" width="50" height="2.4" rx="1"/>
+            <rect x="134" y="52" width="36" height="2.4" rx="1"/><rect x="134" y="60" width="50" height="2.4" rx="1"/>
+            <rect x="226" y="62" width="36" height="2.4" rx="1"/><rect x="226" y="70" width="50" height="2.4" rx="1"/>
+          </g>
+          <path d="M102 90h24M194 90h24" stroke="#E0A03C" stroke-width="1.2" stroke-dasharray="3 3" opacity=".6"/>
+          <circle r="2.6" fill="#F0C173">
+            <animateMotion dur="3.6s" repeatCount="indefinite" path="M102 90h24"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="top"><h3>Saudi Cultural Tourism Platform</h3><span class="when">2026</span></div>
+        <div class="role"><span>Front-End Developer</span><span>Team of 4</span><span>Graduation Project</span></div>
+        <p>A bilingual platform with three role-based portals — tourist, provider and admin — built
+        against a NestJS REST API. I built the complete front end and wrote the end-to-end test
+        suite covering all three portals.</p>
+        <div class="links"><span class="none">Private — university project</span></div>
+        <div class="tags"><span class="tag">Vue 3</span><span class="tag">TypeScript</span>
+        <span class="tag">Pinia</span><span class="tag">Vite</span><span class="tag">NestJS</span>
+        <span class="tag">Playwright</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shot">
+        <!-- hash-chained ledger -->
+        <svg viewBox="0 0 320 180" aria-hidden="true">
+          <g stroke="#E0A03C" stroke-width="1.2" fill="none">
+            <rect x="26" y="70" width="52" height="40" rx="3"/>
+            <rect x="98" y="70" width="52" height="40" rx="3"/>
+            <rect x="170" y="70" width="52" height="40" rx="3"/>
+            <rect x="242" y="70" width="52" height="40" rx="3" opacity=".45" stroke-dasharray="3 3"/>
+            <path d="M78 90h20M150 90h20M222 90h20" opacity=".7"/>
+          </g>
+          <g fill="#E0A03C" opacity=".55" font-family="monospace" font-size="7">
+            <text x="36" y="94">a3f1</text><text x="108" y="94">7b2c</text><text x="180" y="94">e94d</text>
+          </g>
+          <g fill="#F0C173">
+            <circle cx="88" cy="90" r="2.2"><animate attributeName="opacity" values="1;.15;1" dur="2.4s" repeatCount="indefinite"/></circle>
+            <circle cx="160" cy="90" r="2.2"><animate attributeName="opacity" values=".15;1;.15" dur="2.4s" repeatCount="indefinite"/></circle>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="top"><h3>Kafeet</h3><span class="when">2026</span></div>
+        <div class="role"><span>Solo</span><span>Amad Hackathon 2026</span><span>Tuwaiq × Alinma Bank</span></div>
+        <p>A complaint-response compliance tool. A deterministic engine computes the SAMA-mandated
+        response deadline, every money-touching step writes into a SHA-256 hash-chained audit log,
+        and the model call runs server-side behind an output validator with a fixture fallback.</p>
+        <div class="links">
+          <a href="https://github.com/na2faldosari">Repository</a>
+          <a href="https://app-nu-seven-90.vercel.app">Live demo</a>
+        </div>
+        <div class="tags"><span class="tag">JavaScript</span><span class="tag">Node.js</span>
+        <span class="tag">LLM API</span><span class="tag">SHA-256</span><span class="tag">MIT</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shot">
+        <!-- scattered thoughts resolving into focus -->
+        <svg viewBox="0 0 320 180" aria-hidden="true">
+          <g fill="#E0A03C">
+            <circle cx="70" cy="52" r="3" opacity=".4"><animate attributeName="cy" values="52;56;52" dur="4s" repeatCount="indefinite"/></circle>
+            <circle cx="112" cy="38" r="2.4" opacity=".3"><animate attributeName="cy" values="38;44;38" dur="5s" repeatCount="indefinite"/></circle>
+            <circle cx="228" cy="46" r="2.8" opacity=".35"><animate attributeName="cy" values="46;41;46" dur="4.6s" repeatCount="indefinite"/></circle>
+            <circle cx="256" cy="70" r="2.2" opacity=".25"><animate attributeName="cy" values="70;75;70" dur="5.4s" repeatCount="indefinite"/></circle>
+            <circle cx="52" cy="86" r="2.2" opacity=".25"/>
+          </g>
+          <g fill="none" stroke="#E0A03C" stroke-width="1.2">
+            <rect x="126" y="76" width="68" height="66" rx="6"/>
+            <path d="M140 96h40M140 108h30M140 120h36" opacity=".55"/>
+          </g>
+          <circle cx="160" cy="76" r="3" fill="#F0C173">
+            <animate attributeName="r" values="3;4.6;3" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="top"><h3>Mulhem</h3><span class="when">2025</span></div>
+        <div class="role"><span>Team of 4</span><span>Apple AI Foundation Program</span></div>
+        <p>An iOS application helping users with ADHD structure their thoughts and stay focused,
+        with a language model powering personalised suggestions. I ran the user research and
+        designed the interface, then built it with the team.</p>
+        <div class="links"><span class="none">Team repository — not public under my account</span></div>
+        <div class="tags"><span class="tag">Swift</span><span class="tag">SwiftUI</span>
+        <span class="tag">Core ML</span><span class="tag">Create ML</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shot">
+        <!-- 21-point hand landmark graph -->
+        <svg viewBox="0 0 320 180" aria-hidden="true">
+          <g stroke="#E0A03C" stroke-width="1" opacity=".45" fill="none">
+            <path d="M160 140 L134 112 L124 84 L118 60"/><path d="M160 140 L152 106 L148 74 L146 48"/>
+            <path d="M160 140 L170 106 L174 74 L176 48"/><path d="M160 140 L188 112 L198 86 L204 64"/>
+            <path d="M160 140 L196 140 L214 128"/>
+          </g>
+          <g fill="#E0A03C">
+            <circle cx="160" cy="140" r="3.4"/>
+            <circle cx="134" cy="112" r="2.2"/><circle cx="124" cy="84" r="2.2"/><circle cx="118" cy="60" r="2.6"/>
+            <circle cx="152" cy="106" r="2.2"/><circle cx="148" cy="74" r="2.2"/><circle cx="146" cy="48" r="2.6"/>
+            <circle cx="170" cy="106" r="2.2"/><circle cx="174" cy="74" r="2.2"/><circle cx="176" cy="48" r="2.6"/>
+            <circle cx="188" cy="112" r="2.2"/><circle cx="198" cy="86" r="2.2"/><circle cx="204" cy="64" r="2.6"/>
+            <circle cx="196" cy="140" r="2.2"/><circle cx="214" cy="128" r="2.6"/>
+          </g>
+          <circle cx="118" cy="60" r="6" fill="none" stroke="#F0C173" stroke-width="1">
+            <animate attributeName="r" values="6;11;6" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".9;0;.9" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="top"><h3>Arabic Sign Language Recognition</h3><span class="when">2026</span></div>
+        <div class="role"><span>Solo</span><span>SDAIA Program</span></div>
+        <p>A real-time system reading Arabic sign letters from a live webcam using 21-point
+        hand-landmark tracking and composing them into words on screen, with a custom Arabic
+        text-rendering pipeline to overcome OpenCV's lack of native Arabic support.</p>
+        <div class="links"><span class="none">Repository not yet public</span></div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">MediaPipe</span>
+        <span class="tag">OpenCV</span><span class="tag">Pillow</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="experience" class="reveal">
+  <p class="eyebrow">BACKGROUND</p>
+  <h2>Experience &amp; Education</h2>
+  <div class="row">
+    <h3>Apple Developer Academy, Tuwaiq Academy</h3>
+    <span class="when">JUL 2025 — AUG 2025</span>
+    <div class="meta">AI Foundation Intern · 1st Cohort · Riyadh</div>
+    <ul>
+      <li>Selected as 1 of 66 participants nationally for the inaugural AI cohort.</li>
+      <li>Trained in artificial intelligence, product development and design thinking, building
+      AI-powered iOS applications with Swift, Core ML and Create ML.</li>
+      <li>Presented the final solution to mentors and Apple Academy representatives.</li>
+    </ul>
+  </div>
+  <div class="row">
+    <h3>Saudi Electronic University</h3>
+    <span class="when">EXPECTED DEC 2026</span>
+    <div class="meta">B.Sc. Computer Science · College of Computing and Informatics · Riyadh</div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <p class="eyebrow">TOOLKIT</p>
+  <h2>Skills</h2>
+  <div class="skills">
+    <div class="sk"><h4>LANGUAGES</h4><p>Python, JavaScript, TypeScript, Swift, SQL</p></div>
+    <div class="sk"><h4>WEB</h4><p>Vue 3, Node.js, NestJS, REST APIs, HTML, CSS</p></div>
+    <div class="sk"><h4>MOBILE</h4><p>Swift, SwiftUI, Core ML</p></div>
+    <div class="sk"><h4>TOOLS &amp; PRACTICES</h4><p>Git, GitHub, Playwright, Agile, TDD</p></div>
+  </div>
+</section>
+
+<section id="certs" class="reveal">
+  <p class="eyebrow">CREDENTIALS</p>
+  <h2>Certifications</h2>
+  <ul class="certs">
+
+    <!-- ▸ CERTIFICATE — copy this whole <li> to add one -->
+    <li class="cert">
+      <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.2" opacity=".55"/>
+        <path d="M13 20l5 5 9-10" fill="none" stroke="#E0A03C" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div><span class="n">Apple AI Foundation Program — 1st Cohort</span>
+        <small>Apple Developer Academy with Tuwaiq Academy</small></div>
+      <span class="when">AUG 2025</span>
+    </li>
+
+    <li class="cert">
+      <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.2" opacity=".55"/>
+        <path d="M13 20l5 5 9-10" fill="none" stroke="#E0A03C" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div><span class="n">Computer Vision for Developers</span>
+        <small>SDAIA — Saudi Data and AI Authority</small></div>
+      <span class="when">MAR 2026</span>
+    </li>
+
+    <li class="cert">
+      <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.2" opacity=".35"/>
+        <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.6"
+                stroke-linecap="round" stroke-dasharray="58 94" transform="rotate(-90 20 20)"/>
+      </svg>
+      <div><span class="n">Artificial Intelligence Program</span>
+        <small>Samsung Innovation Campus with Misk Foundation</small>
+        <div class="prog"><i></i></div></div>
+      <span class="when">2026 · IN PROGRESS</span>
+    </li>
+
+  </ul>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="box">
+    <div>
+      <h2>Get in touch</h2>
+      <p>Open to conversations about software engineering roles and projects.</p>
+    </div>
+    <div class="cta" style="margin:0;animation:none;opacity:1">
+      <a class="btn solid" href="mailto:na2faldosari@gmail.com">na2faldosari@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="in">
+    <span>© 2026 NAIF FARAJ ALDOSARI</span>
+    <span>RIYADH, SAUDI ARABIA</span>
+  </div>
+</footer>
+
+<script>
+var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (!reduce) {
+  // scroll progress
+  var bar = document.getElementById("bar");
+  addEventListener("scroll", function () {
+    var h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + "%";
+  }, { passive: true });
+
+  // section reveal
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+} else {
+  document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("on"); });
+}
+</script>
