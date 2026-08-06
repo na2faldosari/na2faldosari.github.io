@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kafeet — Naif Aldosari</title>
+<meta name="description" content="A tool that explains the bank decision that touched a customer's money: what happened, why, what their next step is, and when the regulator requires a reply.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafeet — Naif Aldosari">
+<meta property="og:description" content="A tool that explains the bank decision that touched a customer's money: what happened, why, what their next step is, and when the regulator requires a reply.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='-apple-system,Segoe UI,sans-serif' font-size='40' font-weight='700' fill='%23fafafa'%3E%D9%86%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/thmanyah-sans-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/thmanyah-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+/* قبل الرسم: الثيم واللغة من التخزين — الداكن والعربية هما الافتراض، كصفحة الرئيسية */
+(function(){
+  try{
+    var t = localStorage.getItem("naif-portfolio-theme");
+    if(t !== "light" && t !== "dark"){
+      t = window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    }
+    if(t === "light") document.documentElement.classList.add("light");
+    var l = localStorage.getItem("naif-portfolio-locale");
+    if(l !== "ar" && l !== "en") l = "ar";
+    if(l === "en"){ document.documentElement.lang = "en"; document.documentElement.dir = "ltr"; }
+  }catch(e){}
+})();
+</script>
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+/* ---------- ترويسة الصفحة ---------- */
+.topbar{position:sticky;top:0;z-index:40;height:64px;display:flex;align-items:center;
+  border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--background) 80%,transparent);
+  backdrop-filter:blur(8px)}
+@supports not (backdrop-filter:blur(1px)){.topbar{background:color-mix(in srgb,var(--background) 95%,transparent)}}
+.topbar .in{width:100%;max-width:52rem;margin-inline:auto;padding-inline:16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
+.back{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;
+  height:32px;padding-inline:12px;border-radius:8px;transition:background .15s}
+.back:hover{background:color-mix(in srgb,var(--muted) 50%,transparent)}
+/* سهم الرجوع يتبع اتجاه القراءة: في العربية يشير يميناً، وفي الإنجليزية يساراً.
+   الأيقونة مرسومة تشير يميناً، فالقلب يلزم في LTR لا في RTL. */
+html[dir=ltr] .back svg{transform:scaleX(-1)}
+.tools{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:8px;
+  font-size:14px;font-weight:500;border:1px solid transparent;transition:background .15s,border-color .15s}
+.btn-outline{border-color:var(--input);background:color-mix(in srgb,var(--input) 30%,transparent);height:36px;padding-inline:14px}
+.light .btn-outline{border-color:var(--border);background:var(--background)}
+.btn-icon{width:36px;padding:0}
+
+/* ---------- المقالة ---------- */
+.wrap{max-width:52rem;margin-inline:auto;padding:56px 16px 80px}
+.eyebrow{font-size:14px;color:var(--muted-foreground)}
+h1{font-size:34px;line-height:1.2;font-weight:700;margin-top:8px}
+@media (min-width:640px){h1{font-size:44px}}
+html[dir=ltr] h1{letter-spacing:-.025em}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.meta span{font-size:13px;line-height:16px;color:var(--muted-foreground);
+  border:1px solid var(--border);border-radius:9999px;padding:5px 12px}
+.lede{font-size:18px;line-height:1.85;color:var(--muted-foreground);margin-top:24px}
+h2{font-size:22px;font-weight:600;margin-top:48px}
+h2+p,h2+ul{margin-top:12px}
+p{line-height:1.85;color:var(--muted-foreground)}
+.wrap ul{list-style:disc;padding-inline-start:18px;display:flex;flex-direction:column;gap:10px;
+  line-height:1.85;color:var(--muted-foreground)}
+.wrap ul b{color:var(--foreground);font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:12px}
+.links a{font-size:15px;color:var(--foreground);border-bottom:1px solid var(--border);
+  padding-bottom:2px;transition:border-color .15s}
+.links a:hover{border-bottom-color:var(--foreground)}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.badge{font-size:12px;line-height:16px;border-radius:6px;padding:4px 10px;
+  background:color-mix(in srgb,var(--muted) 60%,transparent);color:var(--muted-foreground);
+  font-family:Geist,"Geist Fallback",ui-sans-serif,system-ui,sans-serif}
+
+/* ---------- الشاشات في إطار متصفح ---------- */
+.shots{display:grid;grid-template-columns:1fr;gap:20px;margin-top:20px}
+@media (min-width:700px){.shots{grid-template-columns:1fr 1fr}}
+.shot{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card)}
+.shot .bar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--border)}
+.shot .bar i{width:8px;height:8px;border-radius:50%;background:var(--muted-foreground);opacity:.4}
+.shot img{width:100%;display:block;aspect-ratio:16/10;object-fit:contain;
+  background:color-mix(in srgb,var(--muted) 55%,transparent)}
+/* الصور شديدة العرض أو الطول تحتفظ بنسبتها بدل حشرها في الإطار */
+.shot.free img{aspect-ratio:auto}
+.shot figcaption{font-size:13px;line-height:16px;color:var(--muted-foreground);padding:10px 12px}
+
+footer{border-top:1px solid var(--border);padding:32px 0}
+footer .in{max-width:52rem;margin-inline:auto;padding-inline:16px;display:flex;flex-wrap:wrap;
+  justify-content:space-between;gap:8px;font-size:14px;color:var(--muted-foreground)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7M9 3v2c0 4.4-2.7 8-6 8M5 9c0 2.1 3 4.1 6 5M12 20l4-9 4 9M13.8 17h4.4"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="in">
+    <a class="back" href="index.html#projects">
+      <svg class="icon" width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
+      <span data-i18n="back">كل المشاريع</span>
+    </a>
+    <div class="tools">
+      <button class="btn btn-outline btn-icon" type="button" id="theme" aria-label="الوضع الفاتح">
+        <svg class="icon icon-sun" width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-sun"></use></svg>
+      </button>
+      <button class="btn btn-outline" type="button" id="lang">
+        <svg class="icon" width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-lang"></use></svg>
+        <span data-i18n="langToggle">English</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="eyebrow" data-i18n="eyebrow"></p>
+  <h1 data-i18n="title"></h1>
+
+  <div class="meta">
+    <span data-i18n="m1"></span>
+    <span data-i18n="m2"></span>
+    <span data-i18n="m3"></span>
+  </div>
+
+  <p class="lede" data-i18n="lede"></p>
+
+  <h2 data-i18n="h_problem"></h2>
+  <p data-i18n="p_problem"></p>
+
+  <h2 data-i18n="h_solution"></h2>
+  <p data-i18n="p_solution"></p>
+
+  <h2 data-i18n="h_features"></h2>
+  <ul>
+    <li data-i18n="f1"></li>
+    <li data-i18n="f2"></li>
+    <li data-i18n="f3"></li>
+  </ul>
+
+  <h2 data-i18n="h_screens"></h2>
+  <div class="shots">
+    <figure class="shot">
+      <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+      <img src="shots/kafeet/01-demo.webp" loading="lazy" decoding="async" alt="النموذج الأولي لكَفيت">
+      <figcaption data-i18n="s1"></figcaption>
+    </figure>
+    <figure class="shot">
+      <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+      <img src="shots/kafeet/02-mark.webp" loading="lazy" decoding="async" alt="علامة كَفيت">
+      <figcaption data-i18n="s2"></figcaption>
+    </figure>
+  </div>
+
+  <h2 data-i18n="h_stack"></h2>
+  <div class="badges">
+    <span class="badge" dir="ltr">JavaScript</span>
+    <span class="badge" dir="ltr">Node.js</span>
+    <span class="badge" dir="ltr">LLM API</span>
+    <span class="badge" dir="ltr">SHA-256</span>
+    <span class="badge" dir="ltr">MIT</span>
+  </div>
+
+  <h2 data-i18n="h_links"></h2>
+  <div class="links">
+    <a href="https://na2faldosari.github.io/kafeet/prototype/index.html" target="_blank" rel="noopener" dir='ltr'>na2faldosari.github.io/kafeet</a>
+    <a href="https://github.com/na2faldosari/kafeet" target="_blank" rel="noopener" dir='ltr'>github.com/na2faldosari/kafeet</a>
+  </div>
+
+  <h2 data-i18n="h_note"></h2>
+  <p data-i18n="p_note"></p>
+</main>
+
+<footer>
+  <div class="in">
+    <span data-i18n="copy">© 2026 نايف الدوسري. جميع الحقوق محفوظة.</span>
+    <span data-i18n="role">مطوّر برمجيات</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var THEME_KEY = "naif-portfolio-theme", LOCALE_KEY = "naif-portfolio-locale";
+  var root = document.documentElement;
+
+  var dict = {
+    ar: {
+      back:"كل المشاريع",
+      langToggle:"English",
+      eyebrow:"هاكاثون أمد · 2026",
+      title:"كَفيت",
+      m1:"منفرداً",
+      m2:"مسار تجربة العميل",
+      m3:"طويق ومصرف الإنماء",
+      lede:"أداة تشرح للعميل قرار البنك الذي مسّ ماله: ماذا حدث، ولماذا، وما خطوته التالية، ومتى يصله الرد نظامًا.",
+      h_problem:"المشكلة",
+      p_problem:"يوقف البنك حوالة أو يحجز مبلغًا، فيصل إلى العميل رمز أو صمت. لا يعرف سبب القرار، ولا خطوته التالية، ولا المهلة التي يلزم البنك بها نظامًا. فيتحول إجراء صحيح إلى تجربة تهز الثقة.",
+      h_solution:"الحل",
+      p_solution:"طبقة تشرح القرار بدل أن تخفيه. تحسب المهلة النظامية للرد وفق تعليمات البنك المركزي، وتكتب كل خطوة تمسّ المال في سجل لا يقبل التلاعب، ولا توصل إلى العميل نصًا من نموذج لغوي إلا بعد مروره بطبقة تحقّق في الخادم.",
+      h_features:"ثلاثة قرارات تحفظ صدقه",
+      f1:"<b>محرّك المهلة حتمي.</b> الحالة نفسها تعطي التاريخ نفسه دائمًا، محسوبًا بأيام العمل وفق نص اللائحة لا بتخمين نموذج.",
+      f2:"<b>سجل تدقيق متسلسل بالتجزئة.</b> كل خطوة تُربط بما قبلها بدالة SHA-256، فأي تعديل لاحق يكسر السلسلة وينكشف.",
+      f3:"<b>النموذج خلف مدقّق.</b> يجري استدعاء النموذج في الخادم خلف مدقّق للمخرجات، فلا يصل إلى العميل شيء غير مفحوص.",
+      h_screens:"من النموذج",
+      s1:"النموذج الأولي",
+      s2:"العلامة",
+      h_stack:"التقنيات",
+      h_links:"روابط",
+      h_note:"ملاحظة",
+      p_note:"عمل منفرد في هاكاثون أمد ضمن مسار تجربة العميل. النموذج أولي ومفتوح المصدر بترخيص MIT.",
+      copy:"© 2026 نايف الدوسري. جميع الحقوق محفوظة.",
+      role:"مطوّر برمجيات"
+    },
+    en: {
+      back:"All projects",
+      langToggle:"العربية",
+      eyebrow:"Amad Hackathon · 2026",
+      title:"Kafeet",
+      m1:"Solo",
+      m2:"Customer experience track",
+      m3:"Tuwaiq × Alinma Bank",
+      lede:"A tool that explains the bank decision that touched a customer's money: what happened, why, what their next step is, and when the regulator requires a reply.",
+      h_problem:"The problem",
+      p_problem:"A bank stops a transfer or holds an amount, and the customer gets a code or silence. They do not know the reason for the decision, their next step, or the deadline the regulator binds the bank to. A correct procedure turns into an experience that costs trust.",
+      h_solution:"The solution",
+      p_solution:"A layer that explains the decision instead of hiding it. It computes the regulatory response deadline under the central bank's rules, writes every money-touching step into a tamper-evident log, and lets no language-model text reach the customer before it passes a server-side validator.",
+      h_features:"Three decisions that keep it honest",
+      f1:"<b>The deadline engine is deterministic.</b> The same case gives the same date every time, computed over working days against the text of the regulation — not guessed by a model.",
+      f2:"<b>A hash-chained audit log.</b> Every step is bound to the one before it with SHA-256, so any later edit breaks the chain and shows.",
+      f3:"<b>The model sits behind a validator.</b> The model call runs server-side behind an output validator, so nothing unchecked reaches the customer.",
+      h_screens:"The prototype",
+      s1:"The prototype",
+      s2:"The wordmark",
+      h_stack:"Stack",
+      h_links:"Links",
+      h_note:"Note",
+      p_note:"Solo work at the Amad Hackathon on the customer-experience track. The prototype is open source under MIT.",
+      copy:"© 2026 Naif Aldosari. All rights reserved.",
+      role:"Software Developer"
+    }
+  };
+
+  function applyLocale(l){
+    root.setAttribute("lang", l);
+    root.setAttribute("dir", l === "ar" ? "rtl" : "ltr");
+    var d = dict[l];
+    var els = document.querySelectorAll("[data-i18n]");
+    for(var i = 0; i < els.length; i++){
+      var v = d[els[i].getAttribute("data-i18n")];
+      if(v != null) els[i].innerHTML = v;
+    }
+    document.title = (l === "ar" ? d.title + " — نايف الدوسري" : d.title + " — Naif Aldosari");
+  }
+
+  function applyTheme(t){
+    root.classList.toggle("light", t === "light");
+    var btn = document.getElementById("theme");
+    var icon = btn.querySelector("use");
+    icon.setAttribute("href", t === "light" ? "#i-moon" : "#i-sun");
+    btn.setAttribute("aria-label", root.getAttribute("lang") === "ar"
+      ? (t === "light" ? "الوضع الداكن" : "الوضع الفاتح")
+      : (t === "light" ? "Dark mode" : "Light mode"));
+  }
+
+  var locale = "ar", theme = "dark";
+  try{
+    var sl = localStorage.getItem(LOCALE_KEY); if(sl === "ar" || sl === "en") locale = sl;
+    var st = localStorage.getItem(THEME_KEY);
+    theme = (st === "light" || st === "dark") ? st
+      : (window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+  }catch(e){}
+  applyLocale(locale); applyTheme(theme);
+
+  document.getElementById("lang").addEventListener("click", function(){
+    locale = locale === "ar" ? "en" : "ar";
+    try{ localStorage.setItem(LOCALE_KEY, locale); }catch(e){}
+    applyLocale(locale); applyTheme(theme);
+  });
+  document.getElementById("theme").addEventListener("click", function(){
+    theme = theme === "light" ? "dark" : "light";
+    try{ localStorage.setItem(THEME_KEY, theme); }catch(e){}
+    applyTheme(theme);
+  });
+  addEventListener("storage", function(e){
+    if(e.key === LOCALE_KEY && (e.newValue === "ar" || e.newValue === "en")){ locale = e.newValue; applyLocale(locale); applyTheme(theme); }
+    if(e.key === THEME_KEY && (e.newValue === "light" || e.newValue === "dark")){ theme = e.newValue; applyTheme(theme); }
+  });
+})();
+</script>
+</body>
+</html>

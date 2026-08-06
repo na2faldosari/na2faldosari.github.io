@@ -1,608 +1,1206 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" data-lang="en">
+<!doctype html>
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Naif Aldosari - Software Developer</title>
-<meta name="description" content="Senior Computer Science student building web and iOS applications, with hands-on experience in applied AI.">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naif Aldosari — Software Developer</title>
+<meta name="description" content="Software developer in Riyadh — web interfaces, platform modules and integrations, applied AI, and Arabic localisation.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Naif Aldosari — Software Developer">
+<meta property="og:description" content="Web interfaces, platform modules and integrations, applied AI, and Arabic localisation.">
+<meta property="og:url" content="https://na2faldosari.github.io/">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Naif Aldosari — Software Developer">
+<meta name="twitter:description" content="Web interfaces, platform modules and integrations, applied AI, and Arabic localisation.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='-apple-system,Segoe UI,sans-serif' font-size='40' font-weight='700' fill='%23fafafa'%3E%D9%86%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/thmanyah-sans-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/thmanyah-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/thmanyah-sans-medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/geist-variable.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+/* pre-paint: theme + locale from localStorage — dark & ar are the defaults */
+(function(){
+  try{
+    var t = localStorage.getItem("naif-portfolio-theme");
+    if(t !== "light" && t !== "dark"){
+      t = window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    }
+    if(t === "light") document.documentElement.classList.add("light");
+    var l = localStorage.getItem("naif-portfolio-locale");
+    if(l !== "ar" && l !== "en") l = "ar";
+    if(l === "en"){ document.documentElement.lang = "en"; document.documentElement.dir = "ltr"; }
+  }catch(e){}
+  /* قبل الرسم: يمنع وميض ظهور المحتوى ثم اختفائه. بلا جافاسكربت لا يُضاف الصنف فيبقى كل شيء مرئياً */
+  if(!/[?&]static=1/.test(location.search)) document.documentElement.classList.add("js");
+  /* شبكة أمان: بما أن الإخفاء يبدأ من هنا، فإن تعطّل سكربت الصفحة قبل تشغيل المراقب يبقى
+     المحتوى مخفياً للأبد. هذا يضمن ظهوره في تلك الحالة وحدها ولا يمسّ المسار الطبيعي. */
+  addEventListener("load", function(){
+    if(window.__revealArmed) return;
+    var els = document.querySelectorAll(".reveal");
+    for(var i = 0; i < els.length; i++) els[i].classList.add("revealed");
+  });
+})();
+</script>
+<link rel="stylesheet" href="assets/tokens.css">
 <style>
-/* ============================================================
-   EDIT GUIDE
-   · Add project      → copy an <article class="card" style="--i:0"> in #work
-   · Add certificate  → copy an <li class="cert" style="--i:0"> in #certs
-   · Replace artwork  → put <img src="shots/x.png" alt="…"> inside .shot
-   · Accent colour    → --acc
-   · Every text node has an .en and an .ar twin; keep both in sync
-   ============================================================ */
+/* الأساس المشترك في assets/tokens.css */
 
-@font-face{font-family:"ThmDisplay";src:url("fonts/thmanyah-serif-display-black.woff2") format("woff2");
-           font-weight:900;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
-@font-face{font-family:"ThmText";src:url("fonts/thmanyah-serif-text-regular.woff2") format("woff2");
-           font-weight:400;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
-@font-face{font-family:"ThmSans";src:url("fonts/thmanyah-sans-regular.woff2") format("woff2");
-           font-weight:400;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
-@font-face{font-family:"ThmSans";src:url("fonts/thmanyah-sans-medium.woff2") format("woff2");
-           font-weight:500;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
-
-:root{
-  --bg:#0A0C0D; --surface:#101315; --surface-2:#151A1C; --line:#1F2528;
-  --ink:#E9EBEB; --ink-2:#98A1A4; --ink-3:#616A6D;
-  --acc:#E0A03C; --acc-2:#F0C173;
-  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-  --lat:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --ar-display:"ThmDisplay",Georgia,serif;
-  --ar-text:"ThmText",Georgia,serif;
-  --ar-sans:"ThmSans",system-ui,sans-serif;
-  --wrap:min(1120px,92vw);
-  --e:cubic-bezier(.22,.61,.36,1);
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:8px;font-size:14px;font-weight:500;white-space:nowrap;
+  transition:all .15s cubic-bezier(.4,0,.2,1);
+  border:1px solid transparent;text-decoration:none;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--lat);font-size:16px;
-     line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:inherit}
-::selection{background:var(--acc);color:#000}
-:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.btn:active{transform:translateY(1px)}
+/* لا تُلغَ حلقة التركيز هنا: القاعدة العامة :focus-visible أعلاه تحقق تباين 3:1 المطلوب */
+.btn-primary{background:var(--primary);color:var(--primary-foreground);height:40px;padding-inline:24px}
+.btn-primary:hover{background:color-mix(in srgb,var(--primary) 80%,transparent)}
+.btn-outline{
+  border-color:var(--input);
+  background:color-mix(in srgb,var(--input) 30%,transparent);
+  box-shadow:0 1px 2px rgba(0,0,0,.05);
+  height:40px;padding-inline:24px;
+}
+.btn-outline:hover{background:color-mix(in srgb,var(--input) 50%,transparent)}
+.light .btn-outline{border-color:var(--border);background:var(--background)}
+.light .btn-outline:hover{background:var(--muted)}
+.btn-ghost{height:32px;padding-inline:12px;border-radius:8px}
+.btn-ghost:hover{background:color-mix(in srgb,var(--muted) 50%,transparent)}
+.light .btn-ghost:hover{background:var(--muted)}
+.btn-icon{width:36px;height:36px;padding:0;border-radius:9999px}
+.btn-square{width:36px;height:36px;padding:0;border-radius:8px}
+.btn-pill{height:36px;border-radius:9999px;padding-inline:16px}
 
-/* ---------- language switching ---------- */
-/* hide only, never force a display value, so each element keeps its natural one.
-   Two-part selector outranks .role{display:flex} etc. further down. */
-html[data-lang="en"] .ar,
-html[data-lang="ar"] .en{display:none}
-html[data-lang="ar"] body{font-family:var(--ar-text)}
-/* Arabic typography: display face for headings, sans for UI/labels */
-html[data-lang="ar"] h1,html[data-lang="ar"] h2,html[data-lang="ar"] h3,
-html[data-lang="ar"] .n{font-family:var(--ar-display);font-weight:900}
-html[data-lang="ar"] .eyebrow,html[data-lang="ar"] .role,html[data-lang="ar"] .when,
-html[data-lang="ar"] .tag,html[data-lang="ar"] nav a,html[data-lang="ar"] .btn,
-html[data-lang="ar"] .avail,html[data-lang="ar"] .sk h4,html[data-lang="ar"] .meta,
-html[data-lang="ar"] footer{font-family:var(--ar-sans)}
-/* numerals and latin terms inside Arabic keep the latin face */
-html[data-lang="ar"] .lat{font-family:var(--lat)}
+/* ---------- header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;height:64px;
+  border-bottom:1px solid transparent;background:transparent;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  transition:background-color .3s ease-out,border-color .3s ease-out;
+}
+.site-header.scrolled{border-bottom-color:var(--border);background:color-mix(in srgb,var(--background) 50%,transparent)}
+@supports not ((backdrop-filter:blur(8px)) or (-webkit-backdrop-filter:blur(8px))){
+  .site-header.scrolled{background:color-mix(in srgb,var(--background) 95%,transparent)}
+}
+.site-header nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.logo{font-weight:600;font-size:16px}
+.nav-links{display:none;align-items:center;gap:4px}
+.header-actions{display:flex;align-items:center;gap:8px}
+.lang-btn{display:none;align-items:center;gap:8px}
+.menu-btn{display:inline-flex;align-items:center;justify-content:center}
+@media (min-width:640px){.lang-btn{display:inline-flex}}
+@media (min-width:1024px){
+  .nav-links{display:flex}
+  .menu-btn{display:none}
+}
+.icon-moon{display:none}
+.light .icon-sun{display:none}
+.light .icon-moon{display:block}
+.menu-btn .icon-x{display:none}
+.menu-btn[aria-expanded="true"] .icon-burger{display:none}
+.menu-btn[aria-expanded="true"] .icon-x{display:block}
 
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(900px 500px at 78% -8%,#E0A03C14,transparent 68%),
-             radial-gradient(700px 420px at 4% 22%,#E0A03C0A,transparent 62%)}
+/* ---------- mobile menu ---------- */
+.mobile-menu{position:fixed;inset:0;top:64px;z-index:40;display:none}
+.mobile-menu.open{display:block}
+@media (min-width:1024px){.mobile-menu{display:none !important}}
+.menu-backdrop{
+  position:absolute;inset:0;
+  background:color-mix(in srgb,var(--background) 60%,transparent);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  animation:fade-in .5s ease-out both;
+}
+@supports not ((backdrop-filter:blur(8px)) or (-webkit-backdrop-filter:blur(8px))){
+  .menu-backdrop{background:color-mix(in srgb,var(--background) 95%,transparent)}
+}
+.menu-panel{position:relative;padding-block:24px;animation:menu-in .2s ease-out both}
+.menu-panel .btn-ghost{display:flex;width:100%;justify-content:flex-start;height:40px}
+.menu-panel .lang-btn-mobile{display:flex;width:100%;margin-top:12px;gap:8px}
+.mobile-menu.closing .menu-panel{animation:menu-out .2s ease-in both}
+.mobile-menu.closing .menu-backdrop{animation:fade-out .2s ease-in both}
+@keyframes menu-in{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+@keyframes menu-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.95)}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+@keyframes fade-out{from{opacity:1}to{opacity:0}}
 
-#bar{position:fixed;top:0;inset-inline-start:0;height:2px;width:0;z-index:40;
-     background:linear-gradient(90deg,var(--acc),var(--acc-2));transition:width .1s linear}
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  min-height:calc(100svh - 4rem);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;overflow-x:clip;
+  scroll-margin-top:64px;
+}
+.glow{
+  position:absolute;pointer-events:none;
+  background:radial-gradient(ellipse at center,color-mix(in srgb,var(--foreground) 10%,transparent),transparent 70%);
+  filter:blur(50px);
+}
+.glow-hero{inset:0;transform:translateY(-33%) scale(1.2);animation:hero-glow 8s ease-in-out infinite}
+.hero-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding-inline:16px}
+.name-wrap{position:relative}
+.glow-name{inset:-48px -64px;z-index:-1;animation:hero-glow-soft 8s ease-in-out -2s infinite}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);border-radius:9999px;
+  padding:6px 16px;font-size:14px;color:var(--muted-foreground);
+}
+.hero-name{
+  font-size:48px;line-height:1.15;font-weight:700;
+  max-width:56rem;margin-top:24px;
+}
+.hero-p{
+  font-size:18px;line-height:1.75;color:var(--muted-foreground);
+  max-width:42rem;margin-top:24px;text-wrap:balance;
+}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;margin-top:32px}
+.scroll-hint{
+  position:absolute;bottom:32px;inset-inline:0;z-index:1;
+  display:flex;justify-content:center;
+}
+.scroll-hint a{
+  display:inline-flex;flex-direction:column;align-items:center;gap:4px;
+  font-size:14px;color:var(--muted-foreground);transition:color .15s cubic-bezier(.4,0,.2,1);
+}
+.scroll-hint a:hover{color:var(--foreground)}
+@media (min-width:640px){
+  .hero-name{font-size:60px}
+  .hero-p{font-size:20px}
+}
+@media (min-width:768px){.hero-name{font-size:72px}}
 
-/* ---------- nav ---------- */
-nav{position:sticky;top:0;z-index:30;background:rgba(10,12,13,.8);
-    backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-nav .in{width:var(--wrap);margin-inline:auto;display:flex;align-items:center;
-        justify-content:space-between;gap:1rem;height:62px}
-nav .mark{font-family:var(--mono);font-size:.82rem;letter-spacing:.16em;color:var(--acc);
-          text-decoration:none}
-nav .right{display:flex;align-items:center;gap:1.7rem}
-nav ul{display:flex;gap:1.7rem;list-style:none}
-nav a{text-decoration:none;font-size:.86rem;color:var(--ink-2);position:relative;
-      transition:color .2s var(--e)}
-nav a::after{content:"";position:absolute;inset-inline-start:0;bottom:-4px;width:0;height:1px;
-             background:var(--acc);transition:width .26s var(--e)}
-nav a:hover,nav a:focus-visible{color:var(--ink)}
-nav a:hover::after{width:100%}
-#lang{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--acc);
-      background:transparent;border:1px solid var(--line);border-radius:0;
-      padding:.32rem .7rem;cursor:pointer;transition:border-color .2s,background .2s}
-#lang:hover{border-color:var(--acc);background:#E0A03C12}
-@media(max-width:760px){nav ul{display:none}}
+@keyframes hero-glow{
+  0%,100%{opacity:.6;transform:translateY(-33%) scale(1.15)}
+  50%{opacity:.9;transform:translateY(-28%) scale(1.28)}
+}
+@keyframes hero-glow-soft{
+  0%,100%{opacity:.5;transform:scale(1)}
+  50%{opacity:.85;transform:scale(1.15)}
+}
+@keyframes hero-intro{
+  from{opacity:0;filter:blur(8px);transform:translateY(18px) scale(.98)}
+  to{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}
+}
+.hero-anim{animation:hero-intro .7s cubic-bezier(.16,1,.3,1) both}
+.hi-1{animation-delay:80ms}
+.hi-2{animation-delay:180ms}
+.hi-3{animation-delay:300ms}
+.hi-4{animation-delay:420ms}
+.hi-5{animation-delay:560ms}
+@keyframes bounce{
+  0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(.8,0,1,1)}
+  50%{transform:none;animation-timing-function:cubic-bezier(0,0,.2,1)}
+}
+.bounce{animation:bounce 1s infinite}
 
-/* ---------- layout ---------- */
-section{width:var(--wrap);margin-inline:auto;padding:6rem 0 0;position:relative;z-index:1}
-.eyebrow{font-family:var(--mono);font-size:.73rem;letter-spacing:.2em;color:var(--acc);
-         margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem}
-.eyebrow::after{content:"";flex:1;height:1px;
-                background:linear-gradient(to var(--fade,right),var(--line),transparent)}
-html[dir="rtl"] .eyebrow{--fade:left}
-h2{font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:600;letter-spacing:-.015em;margin-bottom:2.1rem}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--e),transform .7s var(--e)}
-.reveal.on{opacity:1;transform:none}
-/* ordered entrance: children arrive in sequence, not all at once */
-.stagger>*{opacity:0;transform:translateY(14px)}
-.stagger.on>*{opacity:1;transform:none;
-  transition:opacity .55s var(--e),transform .55s var(--e);
-  transition-delay:calc(var(--i,0)*90ms)}
+/* ---------- reveal on scroll ---------- */
+/* الحالة المخفية تُطبق فقط عندما تعمل جافاسكربت (html.js): بلا JS يبقى كل المحتوى مقروءاً */
+html.js .reveal{
+  opacity:0;transform:translateY(12px);
+  transition:all .5s cubic-bezier(0,0,.2,1);
+  transition-delay:var(--d,0ms);
+}
+/* لا بد أن يطابق المحدد أعلاه في التخصيص، وإلا بقيت الصفحة كلها بشفافية صفر */
+html.js .reveal.revealed{opacity:1;transform:translateY(0)}
 
-/* ---------- hero: type is the hero ---------- */
-header{width:var(--wrap);margin-inline:auto;padding:clamp(3rem,9vh,5.5rem) 0 1rem;
-       position:relative;z-index:1}
-header h1{font-size:clamp(3rem,13vw,9.5rem);font-weight:600;line-height:.92;
-          letter-spacing:-.045em}
-html[data-lang="ar"] header h1{letter-spacing:0;line-height:1.06;
-                               font-size:clamp(2.8rem,11.5vw,8.5rem)}
-header h1 .l{display:block;overflow:hidden}
-header h1 .l>span{display:block;transform:translateY(105%);animation:rise .95s var(--e) forwards}
-header h1 .l:nth-child(2)>span{animation-delay:.1s}
-header h1 em{font-style:normal;color:var(--acc)}
-@keyframes rise{to{transform:none}}
-.fade{opacity:0;animation:fade .8s var(--e) forwards}
-@keyframes fade{to{opacity:1}}
-.hero-meta{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;align-items:baseline;margin-top:1.6rem}
-header .role{font-family:var(--mono);font-size:.88rem;letter-spacing:.12em;color:var(--ink-2);
-             animation-delay:.34s}
-header p.lede{max-width:56ch;color:var(--ink-2);margin-top:1.5rem;font-size:1.05rem;
-              animation-delay:.44s}
-html[data-lang="ar"] header p.lede{font-size:1.12rem;line-height:1.9;max-width:52ch}
-.cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.1rem;animation-delay:.54s}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.64rem 1.2rem;
-     border:1px solid var(--line);border-radius:0;text-decoration:none;font-size:.87rem;
-     color:var(--ink);transition:border-color .2s var(--e),color .2s var(--e),
-     background .2s var(--e),transform .2s var(--e)}
-.btn:hover,.btn:focus-visible{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
-.btn.solid{background:var(--acc);color:#000;border-color:var(--acc);font-weight:500}
-.btn.solid:hover,.btn.solid:focus-visible{background:transparent;color:var(--acc)}
-.avail{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.7rem;
-       font-family:var(--mono);font-size:.77rem;color:var(--ink-3);animation-delay:.64s}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex:none;
-     box-shadow:0 0 0 0 #E0A03C99;animation:pulse 2.4s ease-out infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+/* ---------- cards & badges ---------- */
+.card{border:1px solid var(--border);background:var(--card);border-radius:18px}
+.badge{
+  display:inline-flex;align-items:center;border-radius:8px;
+  border:1px solid var(--border);
+  background:color-mix(in srgb,var(--muted) 60%,transparent);
+  padding:4px 10px;font-size:12px;font-weight:500;color:var(--muted-foreground);
+}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.card-title{font-size:16px;font-weight:600}
 
-/* ---------- project cards: 2 per row ---------- */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,25rem),1fr));gap:1.1rem}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:0;overflow:hidden;
-      display:flex;flex-direction:column;transition:border-color .3s var(--e),
-      transform .3s var(--e),box-shadow .3s var(--e)}
-.card:hover{border-color:#3A4348;transform:translateY(-4px);box-shadow:0 16px 40px -22px #000}
-.shot{aspect-ratio:16/9;background:var(--surface-2);border-bottom:1px solid var(--line);
-      position:relative;overflow:hidden;display:grid;place-items:center}
-.shot img{width:100%;height:100%;object-fit:cover;display:block}
-.shot svg{width:100%;height:100%;display:block}
-.body{padding:1.5rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
-.top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
-.top h3{font-size:1.08rem;font-weight:600;line-height:1.3}
-.when{font-family:var(--mono);font-size:.74rem;color:var(--ink-3);white-space:nowrap}
-.role{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--acc);
-      display:flex;flex-wrap:wrap;gap:.3rem .7rem}
-.card p{color:var(--ink-2);font-size:.93rem}
-html[data-lang="ar"] .card p{font-size:1rem;line-height:1.85}
-.links{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:.1rem}
-.links a{font-size:.83rem;color:var(--acc);text-decoration:none;
-         border-bottom:1px solid transparent;transition:border-color .2s}
-.links a:hover,.links a:focus-visible{border-bottom-color:var(--acc)}
-.links .none{font-size:.83rem;color:var(--ink-3)}
-.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:auto;padding-top:.6rem}
-.tag{font-family:var(--mono);font-size:.69rem;color:var(--ink-3);border:1px solid var(--line);
-     border-radius:0;padding:.16rem .46rem;transition:color .2s,border-color .2s;direction:ltr}
-.card:hover .tag{color:var(--ink-2);border-color:#2C3438}
+/* ---------- about ---------- */
+.about-card{max-width:48rem;margin-inline:auto;padding:32px;text-align:center}
+.about-card p{font-size:18px;line-height:1.625;color:var(--muted-foreground)}
 
-/* ---------- rows ---------- */
-.row{border-top:1px solid var(--line);padding:1.5rem 0;display:grid;
-     grid-template-columns:1fr auto;gap:.3rem 1.5rem;align-items:baseline;
-     transition:padding-inline-start .3s var(--e)}
-.row:last-child{border-bottom:1px solid var(--line)}
-.row:hover{padding-inline-start:.7rem}
-.row h3{font-size:1.05rem;font-weight:600}
-.row .meta{grid-column:1/-1;font-size:.88rem;color:var(--acc);margin-top:.1rem}
-.row ul{grid-column:1/-1;margin-top:.75rem;padding-inline-start:1.05rem;color:var(--ink-2);
-        font-size:.93rem;display:flex;flex-direction:column;gap:.4rem}
-html[data-lang="ar"] .row ul{font-size:1rem;line-height:1.85}
+/* ---------- experience timeline ---------- */
+.timeline{max-width:48rem;margin-inline:auto}
+.tl-item{position:relative;margin-inline-start:32px;margin-bottom:24px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{
+  position:absolute;inset-inline-start:-24px;top:10px;
+  width:16px;height:16px;border-radius:9999px;background:var(--background);
+  border:2px solid color-mix(in srgb,var(--primary) 20%,transparent);
+}
+.tl-item[data-completed] .tl-dot{border-color:var(--primary)}
+.tl-line{
+  position:absolute;inset-inline-start:-17px;top:18px;
+  width:2px;height:calc(100% - 1.25rem);
+  background:color-mix(in srgb,var(--primary) 10%,transparent);
+}
+.tl-line.solid{background:var(--primary)}
+.tl-head{display:flex;align-items:center;gap:12px}
+.tl-avatar{
+  width:36px;height:36px;border-radius:9999px;flex:none;
+  border:1px solid var(--border);background:var(--card);
+  display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;
+}
+.tl-company{font-weight:600}
+.tl-role{font-size:16px;font-weight:500;margin-top:8px}
+.tl-meta{
+  display:flex;flex-wrap:wrap;align-items:center;column-gap:16px;row-gap:4px;
+  margin-top:6px;font-size:12px;color:var(--muted-foreground);
+}
+.tl-meta span{display:inline-flex;align-items:center;gap:4px}
+.tl-body{margin-top:12px;font-size:14px;color:var(--muted-foreground)}
+.tl-body ul{list-style:disc;padding-inline-start:16px;display:flex;flex-direction:column;gap:6px}
+.tl-project{border:1px solid var(--border);background:var(--card);border-radius:14px;padding:16px;margin-top:16px}
+.tl-project h4{font-size:16px;font-weight:600;color:var(--card-foreground);margin-bottom:8px}
+.tl-item .badges{margin-top:16px}
 
 /* ---------- skills ---------- */
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1.4rem}
-.sk{border:1px solid var(--line);border-radius:0;padding:1.2rem;background:var(--surface);
-    transition:border-color .3s var(--e)}
-.sk:hover{border-color:#333C40}
-.sk h4{font-family:var(--mono);font-size:.73rem;letter-spacing:.11em;color:var(--acc);
-       margin-bottom:.65rem}
-.sk p{color:var(--ink-2);font-size:.92rem;direction:ltr;text-align:start}
-html[dir="rtl"] .sk p{text-align:right}
+.tools-head{text-align:center}
+.tools-desc{margin-top:8px;font-size:14px;color:var(--muted-foreground)}
+.tools-row{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  column-gap:40px;row-gap:24px;margin-top:32px;
+}
+.tool{display:flex;flex-direction:column;align-items:center;gap:8px}
+.tool-tile{
+  width:48px;height:48px;border-radius:14px;
+  border:1px solid var(--border);background:var(--card);
+  display:flex;align-items:center;justify-content:center;color:var(--foreground);
+}
+.tool span{font-size:12px;font-weight:500}
+.skills-grid{display:grid;gap:32px;margin-top:64px}
+.skill-card{padding:24px}
+.skill-card .badges{margin-top:16px}
+@media (min-width:640px){.skills-grid{grid-template-columns:1fr 1fr}}
 
-/* ---------- certificates ---------- */
-.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1.1rem;
-       list-style:none}
-.cert{border:1px solid var(--line);border-radius:0;background:var(--surface);padding:1.4rem;
-      display:flex;flex-direction:column;gap:.55rem;position:relative;overflow:hidden;
-      transition:border-color .3s var(--e),transform .3s var(--e)}
-.cert:hover{border-color:#3A4348;transform:translateY(-3px)}
-.cert::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:2px;
-              background:var(--acc);transform:scaleY(0);transform-origin:top;
-              transition:transform .4s var(--e)}
-.cert:hover::before{transform:scaleY(1)}
-.cert .seal{width:34px;height:34px;flex:none}
-.cert .n{font-size:.98rem;font-weight:600;line-height:1.35}
-.cert small{color:var(--ink-3);font-size:.84rem;display:block;margin-top:.15rem}
-.cert .when{margin-top:auto;padding-top:.4rem}
-.cert .prog{height:2px;background:var(--line);border-radius:0;overflow:hidden;margin-top:.5rem}
-.cert .prog i{display:block;height:100%;width:62%;background:var(--acc);border-radius:0}
+/* ---------- education ---------- */
+.edu-card{
+  max-width:48rem;margin-inline:auto;padding:24px;
+  display:flex;align-items:flex-start;gap:16px;
+}
+.edu-icon{
+  width:44px;height:44px;border-radius:9999px;flex:none;
+  border:1px solid var(--border);background:var(--background);
+  display:flex;align-items:center;justify-content:center;
+}
+.edu-degree{font-weight:600}
+.edu-uni{font-size:14px;color:var(--muted-foreground);margin-top:4px}
+.edu-subhead{text-align:center;margin-top:64px}
+.certs-grid{display:grid;gap:16px;margin-top:24px}
+.cert-card{padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.cert-card .edu-icon{margin-bottom:12px}
+.cert-title{font-size:14px;font-weight:600}
+.cert-provider{font-size:12px;color:var(--muted-foreground);margin-top:4px}
+@media (min-width:640px){.certs-grid{grid-template-columns:repeat(3,1fr)}}
+.langs-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px}
+.lang-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);background:var(--card);border-radius:9999px;
+  padding:10px 20px;
+}
+.lang-pill .name{font-weight:500}
+.lang-pill .level{color:var(--muted-foreground)}
+
+/* ---------- projects ---------- */
+.projects-grid{display:grid;gap:24px}
+.project-card{padding:24px;display:flex;flex-direction:column}
+.project-card p{font-size:14px;color:var(--muted-foreground);margin-top:8px;flex:1}
+.project-card .badges{margin-top:16px}
+.project-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px}
+.project-links a{
+  font-size:14px;font-weight:500;color:var(--muted-foreground);
+  transition:color .15s cubic-bezier(.4,0,.2,1);
+}
+.project-links a:hover{color:var(--foreground)}
+@media (min-width:640px){
+  .projects-grid{grid-template-columns:1fr 1fr}
+}
 
 /* ---------- contact ---------- */
-#contact{padding-bottom:5rem}
-.box{border:1px solid var(--line);border-radius:0;background:var(--surface);padding:2.5rem;
-     display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.6rem;align-items:center;
-     position:relative;overflow:hidden}
-.box::after{content:"";position:absolute;inset-inline-end:-60px;top:-60px;width:220px;height:220px;
-            background:radial-gradient(circle,#E0A03C18,transparent 68%);pointer-events:none}
-.box h2{margin-bottom:.45rem}
-.box p{color:var(--ink-2);font-size:.95rem}
-footer{border-top:1px solid var(--line);margin-top:2rem;position:relative;z-index:1}
-footer .in{width:var(--wrap);margin-inline:auto;padding:1.7rem 0;display:flex;flex-wrap:wrap;
-           justify-content:space-between;gap:.6rem;font-family:var(--mono);font-size:.74rem;
-           color:var(--ink-3)}
-
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .reveal,.stagger>*{opacity:1;transform:none}
-  header h1 .l>span{transform:none}
-  .fade{opacity:1}
-  #bar{display:none}
+.contact-card{max-width:28rem;margin-inline:auto;padding:24px;text-align:center}
+.contact-card > p{font-size:14px;color:var(--muted-foreground);margin-top:8px}
+.contact-mail{
+  display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+  font-size:14px;color:var(--muted-foreground);
+  transition:color .15s cubic-bezier(.4,0,.2,1);
 }
+.contact-mail:hover{color:var(--foreground)}
+.contact-via{margin-top:32px}
+.contact-via h4{font-size:14px;font-weight:600}
+.socials{display:flex;justify-content:center;gap:12px;margin-top:16px}
+.socials a{
+  width:40px;height:40px;border-radius:9999px;
+  border:1px solid var(--border);background:var(--background);
+  display:flex;align-items:center;justify-content:center;
+  transition:background-color .15s cubic-bezier(.4,0,.2,1);
+}
+.socials a:hover{background:var(--muted)}
+
+/* ---------- footer ---------- */
+.site-footer{border-top:1px solid var(--border);padding-block:32px}
+.site-footer .row{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:8px;font-size:14px;color:var(--muted-foreground);
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .hero-anim{animation:none}
+  .glow-hero,.glow-name{animation:none}
+  .bounce{animation:none}
+  .menu-panel,.menu-backdrop{animation:none}
+  /* المرجع: الكشف يبقى لكن بلا إزاحة وبمدة 300ms — التخصيص هنا يطابق html.js .reveal */
+  html.js .reveal{transform:none;transition:opacity .3s cubic-bezier(0,0,.2,1)}
+}
+/* سلّم تيلويند كما في المرجع: text-sm = 14/20، text-xs = 12/16 — بدل وراثة 1.5 من الجسم */
+.btn,.hero-badge,.scroll-hint a,.tl-avatar,.tl-body,.tools-desc,.edu-uni,.cert-title,
+.project-card p,.project-links a,.contact-card>p,.contact-mail,.contact-via h4,
+.site-footer .row{line-height:20px}
+.badge,.tl-meta,.tool span,.cert-provider{line-height:16px}
 </style>
 </head>
 <body>
 
-<div id="bar"></div>
+<!-- tabler outline icons, stroke 2 -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M7 8l-4 4l4 4"></path><path d="M17 8l4 4l-4 4"></path><path d="M14 4l-4 16"></path></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path><path d="M7 11l5 5l5 -5"></path><path d="M12 4l0 12"></path></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5l0 14"></path><path d="M18 13l-6 6"></path><path d="M6 13l6 6"></path></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6l16 0"></path><path d="M4 12l16 0"></path><path d="M4 18l16 0"></path></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></symbol>
+  <symbol id="i-language" viewBox="0 0 24 24"><path d="M9 6.371c0 4.418 -2.239 6.629 -5 6.629"></path><path d="M4 6.371h7"></path><path d="M5 9c0 2.144 2.252 3.908 6 4"></path><path d="M12 20l4 -9l4 9"></path><path d="M19.1 18h-6.2"></path><path d="M6.694 3l.793 .582"></path></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12"></path><path d="M16 3v4"></path><path d="M8 3v4"></path><path d="M4 11h16"></path><path d="M11 15h1"></path><path d="M12 15v3"></path></symbol>
+  <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"></path></symbol>
+  <symbol id="i-school" viewBox="0 0 24 24"><path d="M22 9l-10 -4l-10 4l10 4l10 -4v6"></path><path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4"></path></symbol>
+  <symbol id="i-certificate" viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path d="M13 17.5v4.5l2 -1.5l2 1.5v-4.5"></path><path d="M10 19h-5a2 2 0 0 1 -2 -2v-10c0 -1.1 .9 -2 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -1 1.73"></path><path d="M6 9l12 0"></path><path d="M6 12l3 0"></path><path d="M6 15l2 0"></path></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10"></path><path d="M3 7l9 6l9 -6"></path></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M8 11v5"></path><path d="M8 8v.01"></path><path d="M12 16v-5"></path><path d="M16 16v-3a2 2 0 1 0 -4 0"></path><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10"></path></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path></symbol>
+  <symbol id="i-git" viewBox="0 0 24 24"><path d="M16 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 8m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 15v-6"></path><path d="M15 11l-2 -2"></path><path d="M11 7l-1.9 -1.9"></path><path d="M13.446 2.6l7.955 7.954a2.045 2.045 0 0 1 0 2.892l-7.955 7.955a2.045 2.045 0 0 1 -2.892 0l-7.955 -7.955a2.045 2.045 0 0 1 0 -2.892l7.955 -7.955a2.045 2.045 0 0 1 2.892 0z"></path></symbol>
+  <symbol id="i-vscode" viewBox="0 0 24 24"><path d="M16 3v18l4 -2.5v-13l-4 -2.5"></path><path d="M9.165 13.903l-4.165 3.597l-2 -1l4.333 -4.5m1.735 -1.802l6.932 -7.198v5l-4.795 4.141"></path><path d="M16 16.5l-11 -10l-2 1l13 13.5"></path></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path d="M9 7c-3 0 -4 3 -4 5.5c0 3 2 7.5 4 7.5c1.088 -.046 1.679 -.5 3 -.5c1.312 0 1.5 .5 3 .5s4 -3 4 -5c-.028 -.01 -2.472 -.403 -2.5 -3c-.019 -2.17 2.416 -2.954 2.5 -3c-1.023 -1.492 -2.951 -1.963 -3.5 -2c-1.433 -.111 -2.83 1 -3.5 1c-.68 0 -1.9 -1 -3 -1z"></path><path d="M12 4a2 2 0 0 0 2 -2a2 2 0 0 0 -2 2"></path></symbol>
+  <symbol id="i-figma" viewBox="0 0 24 24"><path d="M12 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path d="M6 6a3 3 0 0 1 3 -3h6a3 3 0 0 1 3 3a3 3 0 0 1 -3 3h-6a3 3 0 0 1 -3 -3"></path><path d="M9 9a3 3 0 0 0 0 6h3m-3 0a3 3 0 1 0 3 3v-15"></path></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 21l18 0"></path><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"></path><path d="M5 21l0 -10.15"></path><path d="M19 21l0 -10.15"></path><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4"></path></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3l6 0"></path><path d="M10 9l4 0"></path><path d="M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6"></path></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="M8 9l3 3l-3 3"></path><path d="M13 15l3 0"></path><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path></symbol>
+</svg>
 
-<nav>
-  <div class="in">
-    <a class="mark" href="#top">NFA</a>
-    <div class="right">
-      <ul>
-        <li><a href="#work"><span class="en">Work</span><span class="ar">الأعمال</span></a></li>
-        <li><a href="#experience"><span class="en">Experience</span><span class="ar">الخبرة</span></a></li>
-        <li><a href="#skills"><span class="en">Skills</span><span class="ar">المهارات</span></a></li>
-        <li><a href="#certs"><span class="en">Certifications</span><span class="ar">الشهادات</span></a></li>
-        <li><a href="#contact"><span class="en">Contact</span><span class="ar">تواصل</span></a></li>
-      </ul>
-      <button id="lang" type="button" aria-label="Switch language">
-        <span class="en">العربية</span><span class="ar lat">English</span>
+<header class="site-header" id="site-header">
+  <nav class="container" aria-label="التنقل الرئيسي" data-i18n-aria="aria.nav">
+    <a class="logo" href="#home" data-i18n="logo">نايـف الدوسري</a>
+    <div class="nav-links">
+      <a class="btn btn-ghost" href="#home" data-i18n="nav.home">الرئيسية</a>
+      <a class="btn btn-ghost" href="#about" data-i18n="nav.about">نبذة عني</a>
+      <a class="btn btn-ghost" href="#experience" data-i18n="nav.experience">الخبرات العملية</a>
+      <a class="btn btn-ghost" href="#skills" data-i18n="nav.skills">المهارات</a>
+      <a class="btn btn-ghost" href="#projects" data-i18n="nav.projects">أبرز المشاريع</a>
+      <a class="btn btn-ghost" href="#contact" data-i18n="nav.contact">تواصل معي</a>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline btn-icon" id="theme-btn" type="button" aria-label="الوضع الفاتح">
+        <svg class="icon icon-sun" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sun"></use></svg>
+        <svg class="icon icon-moon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-moon"></use></svg>
+      </button>
+      <button class="btn btn-outline btn-pill lang-btn" id="lang-btn" type="button">
+        <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-language"></use></svg>
+        <span data-i18n="langToggle">English</span>
+      </button>
+      <button class="btn btn-ghost btn-square menu-btn" id="menu-btn" type="button" aria-label="فتح القائمة" data-i18n-aria="aria.menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg class="icon icon-burger" aria-hidden="true" focusable="false" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-menu"></use></svg>
+        <svg class="icon icon-x" aria-hidden="true" focusable="false" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-x"></use></svg>
       </button>
     </div>
-  </div>
-</nav>
-
-<header id="top">
-  <h1 class="en"><span class="l"><span>Naif</span></span><span class="l"><span>Aldosari<em>.</em></span></span></h1>
-  <h1 class="ar"><span class="l"><span>نايف</span></span><span class="l"><span>الدوسري<em>.</em></span></span></h1>
-
-  <div class="role fade en">SOFTWARE DEVELOPER · RIYADH</div>
-  <div class="role fade ar">مطوّر برمجيات · الرياض</div>
-
-  <p class="lede fade en">Senior Computer Science student building web and iOS applications, with
-  hands-on experience in applied artificial intelligence. Selected as 1 of 66 participants
-  nationally for the first cohort of the Apple AI Foundation Program.</p>
-  <p class="lede fade ar">أبني تطبيقات الويب والآيفون، وأشتغل على الذكاء الاصطناعي في طبقة التطبيق.
-  طالب علوم حاسب في سنته الأخيرة، واختِرتُ ضمن <span class="lat">66</span> متدرّباً على مستوى المملكة
-  للدفعة الأولى من برنامج آبل التأسيسي للذكاء الاصطناعي.</p>
-
-  <div class="cta fade">
-    <a class="btn solid" href="Naif_Aldosari_CV.pdf"><span class="en">Download CV</span><span class="ar">حمّل السيرة</span></a>
-    <a class="btn" href="https://github.com/na2faldosari"><span class="lat">GitHub</span></a>
-    <a class="btn" href="https://linkedin.com/in/naif-aldosarii"><span class="lat">LinkedIn</span></a>
-  </div>
-  <div class="avail fade"><span class="dot"></span>
-    <span class="en">Graduating December 2026</span>
-    <span class="ar">التخرّج في ديسمبر <span class="lat">2026</span></span>
-  </div>
+  </nav>
 </header>
 
-<section id="work" class="reveal">
-  <p class="eyebrow"><span class="en">SELECTED WORK</span><span class="ar">مختارات</span></p>
-  <h2><span class="en">Projects</span><span class="ar">ما بنيتُه</span></h2>
-  <div class="grid stagger">
-
-    <!-- ▸ PROJECT -->
-    <article class="card" style="--i:1">
-      <div class="shot">
-        <svg viewBox="0 0 320 180" aria-hidden="true">
-          <g fill="none" stroke="#E0A03C" stroke-width="1.2">
-            <rect x="34" y="52" width="68" height="76" rx="3" opacity=".85"/>
-            <rect x="126" y="42" width="68" height="96" rx="3"/>
-            <rect x="218" y="52" width="68" height="76" rx="3" opacity=".85"/>
-          </g>
-          <g fill="#E0A03C" opacity=".5">
-            <rect x="42" y="62" width="36" height="2.4" rx="1"/><rect x="42" y="70" width="50" height="2.4" rx="1"/>
-            <rect x="134" y="52" width="36" height="2.4" rx="1"/><rect x="134" y="60" width="50" height="2.4" rx="1"/>
-            <rect x="226" y="62" width="36" height="2.4" rx="1"/><rect x="226" y="70" width="50" height="2.4" rx="1"/>
-          </g>
-          <path d="M102 90h24M194 90h24" stroke="#E0A03C" stroke-width="1.2" stroke-dasharray="3 3" opacity=".6"/>
-          <circle r="2.6" fill="#F0C173"><animateMotion dur="3.6s" repeatCount="indefinite" path="M102 90h24"/></circle>
-        </svg>
-      </div>
-      <div class="body">
-        <div class="top">
-          <h3><span class="en">Saudi Cultural Tourism Platform</span><span class="ar">منصّة السياحة الثقافية</span></h3>
-          <span class="when lat">2026</span>
-        </div>
-        <div class="role">
-          <span class="en">Front-End Developer</span><span class="ar">مطوّر الواجهة</span>
-          <span class="en">Team of 4</span><span class="ar">فريق من <span class="lat">4</span></span>
-          <span class="en">Graduation Project</span><span class="ar">مشروع التخرّج</span>
-        </div>
-        <p class="en">A bilingual platform with three role-based portals (tourist, provider and
-        admin) built against a NestJS REST API. I built the complete front end and wrote the
-        end-to-end test suite covering all three portals.</p>
-        <p class="ar">منصّة بلغتين وثلاث بوابات: زائر ومزوّد ومشرف، تقف على واجهة برمجية واحدة.
-        بنيتُ الواجهة الأمامية كاملة، وكتبتُ اختبارات المسار الكامل للبوابات الثلاث.</p>
-        <div class="links">
-          <span class="none en">Private, university project</span>
-          <span class="none ar">مغلق، مشروع جامعي</span>
-        </div>
-        <div class="tags"><span class="tag">Vue 3</span><span class="tag">TypeScript</span>
-        <span class="tag">Pinia</span><span class="tag">Vite</span><span class="tag">NestJS</span>
-        <span class="tag">Playwright</span></div>
-      </div>
-    </article>
-
-    <article class="card" style="--i:2">
-      <div class="shot">
-        <svg viewBox="0 0 320 180" aria-hidden="true">
-          <g stroke="#E0A03C" stroke-width="1.2" fill="none">
-            <rect x="26" y="70" width="52" height="40" rx="3"/><rect x="98" y="70" width="52" height="40" rx="3"/>
-            <rect x="170" y="70" width="52" height="40" rx="3"/>
-            <rect x="242" y="70" width="52" height="40" rx="3" opacity=".45" stroke-dasharray="3 3"/>
-            <path d="M78 90h20M150 90h20M222 90h20" opacity=".7"/>
-          </g>
-          <g fill="#E0A03C" opacity=".55" font-family="monospace" font-size="7">
-            <text x="36" y="94">a3f1</text><text x="108" y="94">7b2c</text><text x="180" y="94">e94d</text>
-          </g>
-          <g fill="#F0C173">
-            <circle cx="88" cy="90" r="2.2"><animate attributeName="opacity" values="1;.15;1" dur="2.4s" repeatCount="indefinite"/></circle>
-            <circle cx="160" cy="90" r="2.2"><animate attributeName="opacity" values=".15;1;.15" dur="2.4s" repeatCount="indefinite"/></circle>
-          </g>
-        </svg>
-      </div>
-      <div class="body">
-        <div class="top">
-          <h3><span class="lat">Kafeet</span> <span class="ar">كَفيت</span></h3>
-          <span class="when lat">2026</span>
-        </div>
-        <div class="role">
-          <span class="en">Solo</span><span class="ar">منفرداً</span>
-          <span class="en">Amad Hackathon 2026</span><span class="ar">هاكاثون أمد <span class="lat">2026</span></span>
-          <span class="en">Tuwaiq × Alinma Bank</span><span class="ar">طويق ومصرف الإنماء</span>
-        </div>
-        <p class="en">A complaint-response compliance tool. A deterministic engine computes the
-        SAMA-mandated response deadline, every money-touching step writes into a SHA-256
-        hash-chained audit log, and the model call runs server-side behind an output validator.</p>
-        <p class="ar">أداة تحسب المهلة النظامية للرد على شكوى بنكية. المحرّك حتمي: الحالة نفسها تعطي
-        التاريخ نفسه دائماً. وكل خطوة تمسّ المال تُكتب في سجلّ مسلسل بالتجزئة، فأيّ تعديل لاحق ينكشف.</p>
-        <div class="links">
-          <a href="https://github.com/na2faldosari"><span class="en">Repository</span><span class="ar">المستودع</span></a>
-          <a href="https://app-nu-seven-90.vercel.app"><span class="en">Live demo</span><span class="ar">عرض حيّ</span></a>
-        </div>
-        <div class="tags"><span class="tag">JavaScript</span><span class="tag">Node.js</span>
-        <span class="tag">LLM API</span><span class="tag">SHA-256</span><span class="tag">MIT</span></div>
-      </div>
-    </article>
-
-    <article class="card" style="--i:3">
-      <div class="shot">
-        <svg viewBox="0 0 320 180" aria-hidden="true">
-          <g fill="#E0A03C">
-            <circle cx="70" cy="52" r="3" opacity=".4"><animate attributeName="cy" values="52;56;52" dur="4s" repeatCount="indefinite"/></circle>
-            <circle cx="112" cy="38" r="2.4" opacity=".3"><animate attributeName="cy" values="38;44;38" dur="5s" repeatCount="indefinite"/></circle>
-            <circle cx="228" cy="46" r="2.8" opacity=".35"><animate attributeName="cy" values="46;41;46" dur="4.6s" repeatCount="indefinite"/></circle>
-            <circle cx="256" cy="70" r="2.2" opacity=".25"><animate attributeName="cy" values="70;75;70" dur="5.4s" repeatCount="indefinite"/></circle>
-            <circle cx="52" cy="86" r="2.2" opacity=".25"/>
-          </g>
-          <g fill="none" stroke="#E0A03C" stroke-width="1.2">
-            <rect x="126" y="76" width="68" height="66" rx="6"/>
-            <path d="M140 96h40M140 108h30M140 120h36" opacity=".55"/>
-          </g>
-          <circle cx="160" cy="76" r="3" fill="#F0C173">
-            <animate attributeName="r" values="3;4.6;3" dur="2.8s" repeatCount="indefinite"/></circle>
-        </svg>
-      </div>
-      <div class="body">
-        <div class="top">
-          <h3><span class="lat">Mulhem</span> <span class="ar">ملهم</span></h3>
-          <span class="when lat">2025</span>
-        </div>
-        <div class="role">
-          <span class="en">Team of 4</span><span class="ar">فريق من <span class="lat">4</span></span>
-          <span class="en">Apple AI Foundation Program</span><span class="ar">برنامج آبل التأسيسي</span>
-        </div>
-        <p class="en">An iOS application helping users with ADHD structure their thoughts and stay
-        focused, with a language model powering personalised suggestions. I ran the user research
-        and designed the interface, then built it with the team.</p>
-        <p class="ar">تطبيق آيفون يساعد المصابين بفرط الحركة وتشتّت الانتباه على ترتيب أفكارهم، ونموذج
-        لغوي يقترح عليهم ما يناسب حالتهم. أجريتُ بحث المستخدم وصمّمتُ الواجهة، ثم بنيناه مع الفريق.</p>
-        <div class="links">
-          <span class="none en">Team repository, not public under my account</span>
-          <span class="none ar">مستودع الفريق، ليس تحت حسابي</span>
-        </div>
-        <div class="tags"><span class="tag">Swift</span><span class="tag">SwiftUI</span>
-        <span class="tag">Core ML</span><span class="tag">Create ML</span></div>
-      </div>
-    </article>
-
-    <article class="card" style="--i:4">
-      <div class="shot">
-        <svg viewBox="0 0 320 180" aria-hidden="true">
-          <g stroke="#E0A03C" stroke-width="1" opacity=".45" fill="none">
-            <path d="M160 140 L134 112 L124 84 L118 60"/><path d="M160 140 L152 106 L148 74 L146 48"/>
-            <path d="M160 140 L170 106 L174 74 L176 48"/><path d="M160 140 L188 112 L198 86 L204 64"/>
-            <path d="M160 140 L196 140 L214 128"/>
-          </g>
-          <g fill="#E0A03C">
-            <circle cx="160" cy="140" r="3.4"/>
-            <circle cx="134" cy="112" r="2.2"/><circle cx="124" cy="84" r="2.2"/><circle cx="118" cy="60" r="2.6"/>
-            <circle cx="152" cy="106" r="2.2"/><circle cx="148" cy="74" r="2.2"/><circle cx="146" cy="48" r="2.6"/>
-            <circle cx="170" cy="106" r="2.2"/><circle cx="174" cy="74" r="2.2"/><circle cx="176" cy="48" r="2.6"/>
-            <circle cx="188" cy="112" r="2.2"/><circle cx="198" cy="86" r="2.2"/><circle cx="204" cy="64" r="2.6"/>
-            <circle cx="196" cy="140" r="2.2"/><circle cx="214" cy="128" r="2.6"/>
-          </g>
-          <circle cx="118" cy="60" r="6" fill="none" stroke="#F0C173" stroke-width="1">
-            <animate attributeName="r" values="6;11;6" dur="3s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values=".9;0;.9" dur="3s" repeatCount="indefinite"/></circle>
-        </svg>
-      </div>
-      <div class="body">
-        <div class="top">
-          <h3><span class="en">Arabic Sign Language Recognition</span><span class="ar">تعرّف لغة الإشارة العربية</span></h3>
-          <span class="when lat">2026</span>
-        </div>
-        <div class="role">
-          <span class="en">Solo</span><span class="ar">منفرداً</span>
-          <span class="en">SDAIA Program</span><span class="ar">برنامج سدايا</span>
-        </div>
-        <p class="en">A real-time system reading Arabic sign letters from a live webcam using
-        21-point hand-landmark tracking and composing them into words on screen, with a custom
-        Arabic text-rendering pipeline to overcome OpenCV's lack of native Arabic support.</p>
-        <p class="ar">نظام يقرأ حروف لغة الإشارة العربية من كاميرا حيّة بتتبّع <span class="lat">21</span>
-        نقطة في اليد، ويركّبها كلماتٍ على الشاشة. وبنيتُ طبقة رسم عربية خاصة، لأن المكتبة الأصلية
-        لا ترسم الحرف العربي أصلاً.</p>
-        <div class="links">
-          <span class="none en">Repository not yet public</span>
-          <span class="none ar">المستودع لم يُنشر بعد</span>
-        </div>
-        <div class="tags"><span class="tag">Python</span><span class="tag">MediaPipe</span>
-        <span class="tag">OpenCV</span><span class="tag">Pillow</span></div>
-      </div>
-    </article>
-
+<div class="mobile-menu" id="mobile-menu">
+  <div class="menu-backdrop" data-menu-close></div>
+  <div class="menu-panel container">
+    <a class="btn btn-ghost" href="#home" data-i18n="nav.home" data-menu-close>الرئيسية</a>
+    <a class="btn btn-ghost" href="#about" data-i18n="nav.about" data-menu-close>نبذة عني</a>
+    <a class="btn btn-ghost" href="#experience" data-i18n="nav.experience" data-menu-close>الخبرات العملية</a>
+    <a class="btn btn-ghost" href="#skills" data-i18n="nav.skills" data-menu-close>المهارات</a>
+    <a class="btn btn-ghost" href="#projects" data-i18n="nav.projects" data-menu-close>أبرز المشاريع</a>
+    <a class="btn btn-ghost" href="#contact" data-i18n="nav.contact" data-menu-close>تواصل معي</a>
+    <button class="btn btn-outline btn-pill lang-btn-mobile" id="lang-btn-mobile" type="button">
+      <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-language"></use></svg>
+      <span data-i18n="langToggle">English</span>
+    </button>
   </div>
-</section>
+</div>
 
-<section id="experience" class="reveal">
-  <h2><span class="en">Experience &amp; Education</span><span class="ar">الخبرة والتعليم</span></h2>
+<main>
 
-  <div class="row">
-    <h3><span class="en">Apple Developer Academy, Tuwaiq Academy</span><span class="ar">أكاديمية آبل للمطوّرين، أكاديمية طويق</span></h3>
-    <span class="when"><span class="en lat">JUL 2025 - AUG 2025</span><span class="ar">يوليو - أغسطس <span class="lat">2025</span></span></span>
-    <div class="meta">
-      <span class="en">AI Foundation Intern · 1st Cohort · Riyadh</span>
-      <span class="ar">متدرّب البرنامج التأسيسي للذكاء الاصطناعي · الدفعة الأولى · الرياض</span>
+  <!-- ============ home ============ -->
+  <section class="hero" id="home">
+    <div class="glow glow-hero" aria-hidden="true"></div>
+    <div class="hero-content">
+      <span class="hero-badge hero-anim hi-1">
+        <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-code"></use></svg>
+        <span data-i18n="hero.badge">مطوّر برمجيات</span>
+      </span>
+      <div class="name-wrap hero-anim hi-2">
+        <div class="glow glow-name" aria-hidden="true"></div>
+        <h1 class="hero-name thmanyah-swash" data-i18n="hero.name">نايـف الدوسري</h1>
+      </div>
+      <p class="hero-p thmanyah-swash hero-anim hi-3" data-i18n="hero.p">أطوّر برمجيات تجمع بين جودة التنفيذ وسهولة الاستخدام لتقديم حلول عملية يُعتمد عليها.</p>
+      <div class="hero-actions hero-anim hi-4">
+        <a class="btn btn-primary" href="#projects" data-i18n="hero.cta1">استعرض أعمالي</a>
+        <a class="btn btn-outline" href="Naif_Aldosari_CV.pdf" target="_blank" rel="noopener">
+          <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-download"></use></svg>
+          <span data-i18n="hero.cta2">اطلع على سيرتي الذاتية</span>
+        </a>
+      </div>
     </div>
-    <ul class="en">
-      <li>Selected as 1 of 66 participants nationally for the inaugural AI cohort.</li>
-      <li>Trained in artificial intelligence, product development and design thinking, building
-      AI-powered iOS applications with Swift, Core ML and Create ML.</li>
-      <li>Presented the final solution to mentors and Apple Academy representatives.</li>
-    </ul>
-    <ul class="ar">
-      <li>اختِرتُ ضمن <span class="lat">66</span> متدرّباً على مستوى المملكة لأول دفعة في البرنامج.</li>
-      <li>تدرّبتُ على الذكاء الاصطناعي وبناء المنتج والتفكير التصميمي، وبنيتُ تطبيقات آيفون بـ
-      <span class="lat">Swift</span> و<span class="lat">Core ML</span>.</li>
-      <li>عرضتُ الحلّ النهائي أمام المرشدين وممثّلي أكاديمية آبل.</li>
-    </ul>
-  </div>
-
-  <div class="row">
-    <h3><span class="en">Saudi Electronic University</span><span class="ar">الجامعة السعودية الإلكترونية</span></h3>
-    <span class="when"><span class="en lat">EXPECTED DEC 2026</span><span class="ar">متوقّع ديسمبر <span class="lat">2026</span></span></span>
-    <div class="meta">
-      <span class="en">B.Sc. Computer Science · College of Computing and Informatics · Riyadh</span>
-      <span class="ar">بكالوريوس علوم الحاسب · كلية الحوسبة والمعلوماتية · الرياض</span>
+    <div class="scroll-hint hero-anim hi-5">
+      <a href="#about">
+        <span data-i18n="hero.scroll">مرر للأسفل</span>
+        <svg class="icon bounce" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-down"></use></svg>
+      </a>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="skills" class="reveal">
-  <h2><span class="en">Skills</span><span class="ar">المهارات</span></h2>
-  <div class="skills stagger">
-    <div class="sk" style="--i:0"><h4><span class="en">LANGUAGES</span><span class="ar">لغات البرمجة</span></h4>
-      <p>Python, JavaScript, TypeScript, Swift, SQL</p></div>
-    <div class="sk" style="--i:1"><h4><span class="en">WEB</span><span class="ar">الويب</span></h4>
-      <p>Vue 3, Node.js, NestJS, REST APIs, HTML, CSS</p></div>
-    <div class="sk" style="--i:2"><h4><span class="en">MOBILE</span><span class="ar">التطبيقات</span></h4>
-      <p>Swift, SwiftUI, Core ML</p></div>
-    <div class="sk" style="--i:3"><h4><span class="en">TOOLS &amp; PRACTICES</span><span class="ar">أدوات وممارسات</span></h4>
-      <p>Git, GitHub, Playwright, Agile, TDD</p></div>
-  </div>
-</section>
-
-<section id="certs" class="reveal">
-  <p class="eyebrow"><span class="en">CREDENTIALS</span><span class="ar">الاعتمادات</span></p>
-  <h2><span class="en">Certifications</span><span class="ar">الشهادات</span></h2>
-  <ul class="certs stagger">
-
-    <li class="cert" style="--i:1">
-      <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.2" opacity=".55"/>
-        <path d="M13 20l5 5 9-10" fill="none" stroke="#E0A03C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div>
-        <span class="n"><span class="en">Apple AI Foundation Program, 1st Cohort</span><span class="ar">برنامج آبل التأسيسي للذكاء الاصطناعي، الدفعة الأولى</span></span>
-        <small><span class="en">Apple Developer Academy with Tuwaiq Academy</span><span class="ar">أكاديمية آبل للمطوّرين مع أكاديمية طويق</span></small>
+  <!-- ============ about ============ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="h2" data-i18n="about.title">نبذة عني</h2>
       </div>
-      <span class="when"><span class="en lat">AUG 2025</span><span class="ar">أغسطس <span class="lat">2025</span></span></span>
-    </li>
-
-    <li class="cert" style="--i:2">
-      <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.2" opacity=".55"/>
-        <path d="M13 20l5 5 9-10" fill="none" stroke="#E0A03C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div>
-        <span class="n"><span class="en">Computer Vision for Developers</span><span class="ar">الرؤية الحاسوبية للمطوّرين</span></span>
-        <small><span class="en">SDAIA, Saudi Data and AI Authority</span><span class="ar">سدايا، الهيئة السعودية للبيانات والذكاء الاصطناعي</span></small>
+      <div class="card about-card reveal" style="--d:100ms">
+        <p data-i18n="about.p">مطوّر برمجيات في السنة الأخيرة من بكالوريوس علوم الحاسب، أبدأ بفهم المشكلة واحتياج المستخدم، ثم أحوّلهما إلى برمجيات واضحة وموثوقة وقابلة للتطوير. أمتلك خبرة عملية في مجالات متعددة من تطوير البرمجيات، وأحرص على جودة التنفيذ، وسهولة الاستخدام، والعمل بروح الفريق وتحمل المسؤولية من الفكرة إلى التشغيل.</p>
       </div>
-      <span class="when"><span class="en lat">MAR 2026</span><span class="ar">مارس <span class="lat">2026</span></span></span>
-    </li>
-
-    <li class="cert" style="--i:3">
-      <svg class="seal" viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.2" opacity=".35"/>
-        <circle cx="20" cy="20" r="15" fill="none" stroke="#E0A03C" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="58 94" transform="rotate(-90 20 20)"/>
-      </svg>
-      <div>
-        <span class="n"><span class="en">Artificial Intelligence Program</span><span class="ar">برنامج الذكاء الاصطناعي</span></span>
-        <small><span class="en">Samsung Innovation Campus with Misk Foundation</span><span class="ar">مخيّم سامسونج للابتكار مع مؤسسة مسك</span></small>
-        <div class="prog"><i></i></div>
-      </div>
-      <span class="when"><span class="en lat">2026 · IN PROGRESS</span><span class="ar"><span class="lat">2026</span> · جارٍ</span></span>
-    </li>
-
-  </ul>
-</section>
-
-<section id="contact" class="reveal">
-  <div class="box">
-    <div>
-      <h2><span class="en">Get in touch</span><span class="ar">تواصل معي</span></h2>
-      <p class="en">Open to conversations about software engineering roles and projects.</p>
-      <p class="ar">مستعدّ لأيّ حديث عن أدوار هندسة البرمجيات والمشاريع.</p>
     </div>
-    <div class="cta" style="margin:0;animation:none;opacity:1">
-      <a class="btn solid lat" href="mailto:na2faldosari@gmail.com">na2faldosari@gmail.com</a>
-      <a class="btn lat" href="tel:+966532412702" dir="ltr">+966 53 241 2702</a>
-    </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <div class="in">
-    <span class="lat">© 2026 NAIF FARAJ ALDOSARI</span>
-    <span><span class="en lat">RIYADH, SAUDI ARABIA</span><span class="ar">الرياض، السعودية</span></span>
+  <!-- ============ experience ============ -->
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="h2" data-i18n="exp.title">الخبرات العملية</h2>
+      </div>
+      <div class="timeline">
+
+        <div class="tl-item reveal" data-completed>
+          <span class="tl-dot" aria-hidden="true"></span>
+          <span class="tl-line solid" aria-hidden="true"></span>
+          <div class="tl-head">
+            <span class="tl-avatar" aria-hidden="true" data-i18n="exp2.avatar">أ</span>
+            <span class="tl-company" data-i18n="exp2.company">أكاديمية آبل للمطورين — طويق</span>
+          </div>
+          <h3 class="tl-role" data-i18n="exp2.role">متدرب البرنامج التأسيسي للذكاء الاصطناعي</h3>
+          <div class="tl-meta">
+            <span>
+              <svg class="icon" aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-calendar"></use></svg>
+              <span data-i18n="exp2.date">يوليو – أغسطس 2025</span>
+            </span>
+            <span>
+              <svg class="icon" aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-map-pin"></use></svg>
+              <span data-i18n="exp2.loc">الرياض</span>
+            </span>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li data-i18n="exp2.b1">اختيرت ضمن 66 متدربًا من أنحاء المملكة للدفعة الأولى من البرنامج.</li>
+              <li data-i18n="exp2.b2">بنيت تطبيق ملهم ضمن فريق من أربعة: صمّمت واجهة الاستخدام وتجربتها، وربطت الواجهة البرمجية للنموذج اللغوي.</li>
+              <li data-i18n="exp2.b3">عرض الحل النهائي أمام المرشدين وممثلي أكاديمية آبل.</li>
+            </ul>
+          </div>
+          <div class="badges">
+            <span class="badge" dir="ltr">Swift</span>
+            <span class="badge" dir="ltr">SwiftUI</span>
+            <span class="badge" dir="ltr">UI/UX Design</span>
+            <span class="badge" dir="ltr">API Integration</span>
+          </div>
+        </div>
+
+        <!-- HASEED-HIDDEN-START<div class="tl-item reveal" data-completed style="—d:80ms">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-head">
+            <span class="tl-avatar" aria-hidden="true" data-i18n="exp1.avatar">ح</span>
+            <span class="tl-company" data-i18n="exp1.company">حصيد</span>
+          </div>
+          <h3 class="tl-role" data-i18n="exp1.role">مطوّر مستقل</h3>
+          <div class="tl-meta">
+            <span>
+              <svg class="icon" aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-calendar"></use></svg>
+              <span data-i18n="exp1.date">2025 – 2026</span>
+            </span>
+            <span>
+              <svg class="icon" aria-hidden="true" focusable="false" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-map-pin"></use></svg>
+              <span data-i18n="exp1.loc">الرياض، المملكة العربية السعودية</span>
+            </span>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li data-i18n="exp1.b1">بنيت متجرًا ومنصة تشغيل كاملة على Odoo لمحمصة قهوة مختصة — برمجيًا وبصريًا — بدل متجر جاهز كانت كلفته 15,000 ريال سنويًا.</li>
+              <li data-i18n="exp1.b2">كتبت ست وحدات برمجية من الصفر: للدخول برمز واتساب، وبوابات دفع قيديا وتابي وتمارا، وشحن سمسا وريدبوكس — أكثر من 3 آلاف سطر بايثون، مع تكامل تاب عبر الواجهة البرمجية.</li>
+              <li data-i18n="exp1.b3">وحّدت رصيد الولاء بين الفرع ونقطة البيع والموقع، ورحّلت أرصدة العملاء من المزوّد السابق دون فقد أي عميل.</li>
+            </ul>
+            <div class="tl-project">
+              <h4 data-i18n="exp1.sel">مشروع مختار: منصة حصيد</h4>
+              <ul>
+                <li data-i18n="exp1.s1">أكثر من 1000 عميل يستخدمون الموقع ونظام الرمز اليوم، فيما تدير المنصة البيع بالتجزئة والجملة واشتراك القهوة بثلاث باقات.</li>
+                <li data-i18n="exp1.s2">الموقع حي: <a href='https://haseed.net' target='_blank' rel='noopener' dir='ltr'>haseed.net</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="badges">
+            <span class="badge" dir="ltr">Odoo 18</span>
+            <span class="badge" dir="ltr">Python</span>
+            <span class="badge" dir="ltr">PostgreSQL</span>
+            <span class="badge" dir="ltr">REST APIs</span>
+            <span class="badge" dir="ltr">Payment Gateways</span>
+          </div>
+        </div>HASEED-HIDDEN-END -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ skills ============ -->
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="h2" data-i18n="skills.title">المهارات</h2>
+      </div>
+
+      <div class="tools-head reveal">
+        <h3 class="subhead" data-i18n="skills.toolsTitle">الأدوات والمنصات</h3>
+        <p class="tools-desc" data-i18n="skills.toolsDesc">الأدوات والمنصات التي أعتمد عليها في عملي.</p>
+      </div>
+      <div class="tools-row reveal" style="--d:100ms">
+        <div class="tool">
+          <span class="tool-tile"><svg class="icon" aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-vscode"></use></svg></span>
+          <span dir="ltr">VS Code</span>
+        </div>
+        <div class="tool">
+          <span class="tool-tile"><svg class="icon" aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-apple"></use></svg></span>
+          <span dir="ltr">Xcode</span>
+        </div>
+        <div class="tool">
+          <span class="tool-tile"><svg class="icon" aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-git"></use></svg></span>
+          <span dir="ltr">Git</span>
+        </div>
+        <div class="tool">
+          <span class="tool-tile"><svg class="icon" aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-github"></use></svg></span>
+          <span dir="ltr">GitHub</span>
+        </div>
+        <div class="tool">
+          <span class="tool-tile"><svg class="icon" aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-figma"></use></svg></span>
+          <span dir="ltr">Figma</span>
+        </div>
+        <div class="tool">
+          <span class="tool-tile"><svg class="icon" aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-store"></use></svg></span>
+          <span dir="ltr">Odoo</span>
+        </div>
+        <div class="tool">
+          <span class="tool-tile"><svg class="icon" aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-flask"></use></svg></span>
+          <span dir="ltr">Playwright</span>
+        </div>
+        <div class="tool">
+          <span class="tool-tile"><svg class="icon" aria-hidden="true" focusable="false" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-terminal"></use></svg></span>
+          <span dir="ltr">Terminal</span>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="card skill-card reveal">
+          <h3 class="card-title" data-i18n="skills.g1">لغات البرمجة <span dir="ltr">(Programming Languages)</span></h3>
+          <div class="badges">
+            <span class="badge" dir="ltr">Python</span>
+            <span class="badge" dir="ltr">JavaScript</span>
+            <span class="badge" dir="ltr">TypeScript</span>
+            <span class="badge" dir="ltr">Swift</span>
+            <span class="badge" dir="ltr">SQL</span>
+            <span class="badge" dir="ltr">HTML</span>
+            <span class="badge" dir="ltr">CSS</span>
+          </div>
+        </div>
+        <div class="card skill-card reveal" style="--d:70ms">
+          <h3 class="card-title" data-i18n="skills.g2">تطوير الويب <span dir="ltr">(Web Development)</span></h3>
+          <div class="badges">
+            <span class="badge" dir="ltr">Vue 3</span>
+            <span class="badge" dir="ltr">Vite</span>
+            <span class="badge" dir="ltr">Pinia</span>
+            <span class="badge" dir="ltr">SCSS</span>
+            <span class="badge" dir="ltr">Responsive Design</span>
+            <span class="badge" dir="ltr">RTL Engineering</span>
+            <span class="badge" dir="ltr">Arabic Localization</span>
+          </div>
+        </div>
+        <div class="card skill-card reveal" style="--d:140ms">
+          <h3 class="card-title" data-i18n="skills.g3">الخلفية والتكاملات <span dir="ltr">(Back-End &amp; Integrations)</span></h3>
+          <div class="badges">
+            <span class="badge" dir="ltr">Node.js</span>
+            <span class="badge" dir="ltr">NestJS</span>
+            <span class="badge" dir="ltr">REST APIs</span>
+          </div>
+        </div>
+        <div class="card skill-card reveal" style="--d:210ms">
+          <h3 class="card-title" data-i18n="skills.g4">تطبيقات الجوال <span dir="ltr">(Mobile Development)</span></h3>
+          <div class="badges">
+            <span class="badge" dir="ltr">Swift</span>
+            <span class="badge" dir="ltr">SwiftUI</span>
+            <span class="badge" dir="ltr">iOS</span>
+            <span class="badge" dir="ltr">API Integration</span>
+            <span class="badge" dir="ltr">UI/UX Design</span>
+          </div>
+        </div>
+        <div class="card skill-card reveal" style="--d:280ms">
+          <h3 class="card-title" data-i18n="skills.g5">الذكاء الاصطناعي والبيانات <span dir="ltr">(AI &amp; Data)</span></h3>
+          <div class="badges">
+            <span class="badge" dir="ltr">LLM APIs</span>
+            <span class="badge" dir="ltr">Prompt Engineering</span>
+            <span class="badge" dir="ltr">Output Validation</span>
+            <span class="badge" dir="ltr">Computer Vision</span>
+            <span class="badge" dir="ltr">OpenCV</span>
+            <span class="badge" dir="ltr">YOLO</span>
+            <span class="badge" dir="ltr">Data Modeling</span>
+          </div>
+        </div>
+        <div class="card skill-card reveal" style="--d:350ms">
+          <h3 class="card-title" data-i18n="skills.g6">الجودة ومنهجية العمل <span dir="ltr">(Quality &amp; Ways of Working)</span></h3>
+          <div class="badges">
+            <span class="badge" dir="ltr">Playwright</span>
+            <span class="badge" dir="ltr">Vitest</span>
+            <span class="badge" dir="ltr">End-to-End Testing</span>
+            <span class="badge" dir="ltr">Agile</span>
+            <span class="badge" dir="ltr">Requirements Analysis</span>
+            <span class="badge" dir="ltr">Technical Documentation</span>
+            <span class="badge" dir="ltr">Git</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ education ============ -->
+  <section class="section" id="education">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="h2" data-i18n="edu.title">التعليم والتطوير المهني</h2>
+      </div>
+
+      <div class="card edu-card reveal">
+        <span class="edu-icon" aria-hidden="true">
+          <svg class="icon" aria-hidden="true" focusable="false" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-school"></use></svg>
+        </span>
+        <div>
+          <div class="edu-degree" data-i18n="edu.degree">بكالوريوس في علوم الحاسب</div>
+          <div class="edu-uni" data-i18n="edu.uni">الجامعة السعودية الإلكترونية — التخرج المتوقع: يناير 2027</div>
+        </div>
+      </div>
+
+      <div class="edu-subhead reveal">
+        <h3 class="subhead" data-i18n="edu.devTitle">التطوير المهني</h3>
+      </div>
+      <div class="certs-grid">
+        <div class="card cert-card reveal">
+          <span class="edu-icon" aria-hidden="true">
+            <svg class="icon" aria-hidden="true" focusable="false" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-certificate"></use></svg>
+          </span>
+          <div class="cert-title" data-i18n="edu.c1">برنامج آبل التأسيسي للذكاء الاصطناعي</div>
+          <div class="cert-provider" data-i18n="edu.c1p">أكاديمية آبل للمطورين مع طويق</div>
+        </div>
+        <div class="card cert-card reveal" style="--d:50ms">
+          <span class="edu-icon" aria-hidden="true">
+            <svg class="icon" aria-hidden="true" focusable="false" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-certificate"></use></svg>
+          </span>
+          <div class="cert-title" data-i18n="edu.c2">الرؤية الحاسوبية للمطورين</div>
+          <div class="cert-provider" data-i18n="edu.c2p">سدايا</div>
+        </div>
+        <div class="card cert-card reveal" style="--d:100ms">
+          <span class="edu-icon" aria-hidden="true">
+            <svg class="icon" aria-hidden="true" focusable="false" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-certificate"></use></svg>
+          </span>
+          <div class="cert-title" data-i18n="edu.c3">برنامج الذكاء الاصطناعي — جارٍ</div>
+          <div class="cert-provider" data-i18n="edu.c3p">مخيم سامسونج للابتكار مع مسك</div>
+        </div>
+      </div>
+
+      <div class="edu-subhead reveal">
+        <h3 class="subhead" data-i18n="edu.langTitle">اللغات</h3>
+      </div>
+      <div class="langs-row reveal" style="--d:50ms">
+        <span class="lang-pill">
+          <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-language"></use></svg>
+          <span class="name" data-i18n="edu.lang1">العربية</span>
+          <span class="level" data-i18n="edu.lang1lvl">اللغة الأم</span>
+        </span>
+        <span class="lang-pill">
+          <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-language"></use></svg>
+          <span class="name" data-i18n="edu.lang2">الإنجليزية</span>
+          <span class="level" data-i18n="edu.lang2lvl">إجادة مهنية</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ projects ============ -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="h2" data-i18n="proj.title">أبرز المشاريع</h2>
+        <p class="section-sub" data-i18n="proj.desc">أعمال مختارة بنيت فيها الطبقة التي تصل النظام الجاهز بحاجة مستخدمه.</p>
+      </div>
+      <div class="projects-grid">
+
+        <!-- HASEED-HIDDEN-START<div class="card project-card reveal">
+          <h3 class="card-title" data-i18n="proj1.title">منصة حصيد</h3>
+          <p data-i18n="proj1.p">متجر ومنصة تشغيل على Odoo لمحمصة مختصة في الرياض — ست وحدات مكتوبة من الصفر للدفع والشحن والدخول برمز واتساب، ورصيد ولاء موحّد عبر القنوات، وأكثر من 1000 عميل.</p>
+          <div class="project-links">
+            <a href="haseed.html" data-i18n="proj1.more">اقرأ المزيد ←</a>
+          </div>
+          <div class="badges">
+            <span class="badge" dir="ltr">Odoo 18</span>
+            <span class="badge" dir="ltr">Python</span>
+            <span class="badge" dir="ltr">PostgreSQL</span>
+            <span class="badge" dir="ltr">REST APIs</span>
+          </div>
+          <div class="project-links">
+          </div>
+        </div>HASEED-HIDDEN-END -->
+
+        <div class="card project-card reveal" style="--d:60ms">
+          <h3 class="card-title" data-i18n="proj2.title">منصة سوّاح للسياحة الثقافية</h3>
+          <p data-i18n="proj2.p">منصة تربط الزائر بالتجارب الثقافية السعودية عبر ثلاث بوابات بصلاحيات منفصلة: زائر يحجز ويدفع، ومزوّد ينشر ويدير، وإدارة تعتمد وتعالج الاسترداد. مشروع تخرج ضمن فريق من أربعة، صمّمت واجهته وبنيتها.</p>
+          <div class="project-links">
+            <a href="sawah.html" data-i18n="proj2.more">اقرأ المزيد ←</a>
+          </div>
+          <div class="badges">
+            <span class="badge" dir="ltr">Vue 3</span>
+            <span class="badge" dir="ltr">TypeScript</span>
+            <span class="badge" dir="ltr">NestJS</span>
+            <span class="badge" dir="ltr">PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="card project-card reveal" style="--d:120ms">
+          <h3 class="card-title" data-i18n="proj3.title">تطبيق ملهم</h3>
+          <p data-i18n="proj3.p">تطبيق آيفون من برنامج آبل التأسيسي يساعد ذوي تشتّت الانتباه على تحويل الخاطر المتشابك إلى خطوة واحدة — صمّمت واجهته وتجربته، وربطت واجهة النموذج البرمجية.</p>
+          <div class="project-links">
+            <a href="mulhem.html" data-i18n="proj3.more">اقرأ المزيد ←</a>
+          </div>
+          <div class="badges">
+            <span class="badge" dir="ltr">Swift</span>
+            <span class="badge" dir="ltr">SwiftUI</span>
+            <span class="badge" dir="ltr">API Integration</span>
+          </div>
+          <div class="project-links">
+          </div>
+        </div>
+
+        <div class="card project-card reveal" style="--d:180ms">
+          <h3 class="card-title" data-i18n="proj4.title">تعرّف لغة الإشارة العربية</h3>
+          <p data-i18n="proj4.p">نظام يقرأ حروف الإشارة من كاميرا حيّة ويركّبها كلمات — 21 نقطة تتبّع في اليد، وتثبيت لثانية ونصف قبل اعتماد الحرف، وطبقة رسم عربي خاصة. عمل جماعي ضمن برنامج سدايا — دوري: كتابة طبقة الرسم العربي فوق OpenCV.</p>
+          <div class="project-links">
+            <a href="sign-language.html" data-i18n="proj4.more">اقرأ المزيد ←</a>
+          </div>
+          <div class="badges">
+            <span class="badge" dir="ltr">Python</span>
+            <span class="badge" dir="ltr">MediaPipe</span>
+            <span class="badge" dir="ltr">OpenCV</span>
+            <span class="badge" dir="ltr">Pillow</span>
+          </div>
+        </div>
+
+        <div class="card project-card reveal" style="--d:240ms">
+          <h3 class="card-title" data-i18n="proj5.title">كَفيت</h3>
+          <p data-i18n="proj5.p">أداة امتثال من هاكاثون أمد — طويق ومصرف الإنماء: محرّك قواعد يحسب مهلة الرد على الشكوى وفق تعليمات البنك المركزي، وسجل تدقيق لا يقبل التلاعب، ونموذج لغوي لا يصل ردّه إلى العميل إلا بعد مروره بطبقة تحقّق في الخادم. عمل منفرد.</p>
+          <div class="project-links">
+            <a href="kafeet.html" data-i18n="proj5.more">اقرأ المزيد ←</a>
+          </div>
+          <div class="badges">
+            <span class="badge" dir="ltr">JavaScript</span>
+            <span class="badge" dir="ltr">Node.js</span>
+            <span class="badge" dir="ltr">SHA-256</span>
+            <span class="badge" dir="ltr">LLM API</span>
+          </div>
+          <div class="project-links">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ contact ============ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="h2" data-i18n="contact.title">تواصل معي</h2>
+      </div>
+      <div class="card contact-card reveal" style="--d:100ms">
+        <h3 class="card-title" data-i18n="contact.info">معلومات التواصل</h3>
+        <p data-i18n="contact.p">منفتح على فرص جديدة، والتعاون، وحتى النقاشات حول تطوير البرمجيات. لا تتردد في التواصل.</p>
+        <a class="contact-mail" href="mailto:na2faldosari@gmail.com">
+          <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-mail"></use></svg>
+          <span dir="ltr">na2faldosari@gmail.com</span>
+        </a>
+        <div class="contact-via">
+          <h4 data-i18n="contact.via">تواصل معي عبر</h4>
+          <div class="socials">
+            <a href="https://wa.me/966532412702" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-whatsapp"></use></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/naif-aldosarii" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-linkedin"></use></svg>
+            </a>
+            <a href="https://github.com/na2faldosari" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-github"></use></svg>
+            </a>
+            <a href="mailto:na2faldosari@gmail.com" aria-label="Email">
+              <svg class="icon" aria-hidden="true" focusable="false" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-mail"></use></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container row">
+    <span data-i18n="footer.copy">© 2026 نايف الدوسري. جميع الحقوق محفوظة.</span>
+    <span data-i18n="footer.role">مطوّر برمجيات</span>
   </div>
 </footer>
 
 <script>
-(function () {
-  var root = document.documentElement, btn = document.getElementById("lang");
-  var saved = null;
-  try { saved = localStorage.getItem("lang"); } catch (e) {}
-  if (saved === "ar") setLang("ar");
+(function(){
+  "use strict";
+  var LOCALE_KEY = "naif-portfolio-locale";
+  var THEME_KEY  = "naif-portfolio-theme";
 
-  function setLang(l) {
-    root.setAttribute("data-lang", l);
-    root.setAttribute("lang", l);
-    root.setAttribute("dir", l === "ar" ? "rtl" : "ltr");
-    try { localStorage.setItem("lang", l); } catch (e) {}
+  /* ---------- dictionaries ---------- */
+  var dict = {
+    ar: {
+      "logo": "نايـف الدوسري",
+      "nav.home": "الرئيسية",
+      "nav.about": "نبذة عني",
+      "nav.experience": "الخبرات العملية",
+      "nav.skills": "المهارات",
+      "nav.projects": "أبرز المشاريع",
+      "nav.contact": "تواصل معي",
+      "langToggle": "English",
+      "aria.nav": "التنقل الرئيسي",
+      "aria.menu": "فتح القائمة",
+      "aria.light": "الوضع الفاتح",
+      "aria.dark": "الوضع الداكن",
+      "hero.badge": "مطوّر برمجيات",
+      "hero.name": "نايـف الدوسري",
+      "hero.p": "أطوّر برمجيات تجمع بين جودة التنفيذ وسهولة الاستخدام لتقديم حلول عملية يُعتمد عليها.",
+      "hero.cta1": "استعرض أعمالي",
+      "hero.cta2": "اطلع على سيرتي الذاتية",
+      "hero.scroll": "مرر للأسفل",
+      "about.title": "نبذة عني",
+      "about.p": "مطوّر برمجيات في السنة الأخيرة من بكالوريوس علوم الحاسب، أبدأ بفهم المشكلة واحتياج المستخدم، ثم أحوّلهما إلى برمجيات واضحة وموثوقة وقابلة للتطوير. أمتلك خبرة عملية في مجالات متعددة من تطوير البرمجيات، وأحرص على جودة التنفيذ، وسهولة الاستخدام، والعمل بروح الفريق وتحمل المسؤولية من الفكرة إلى التشغيل.",
+      "exp.title": "الخبرات العملية",
+      "exp1.avatar": "ح",
+      "exp1.company": "حصيد",
+      "exp1.role": "مطوّر مستقل",
+      "exp1.date": "2025 – 2026",
+      "exp1.loc": "الرياض، المملكة العربية السعودية",
+      "exp1.b1": "بنيت متجرًا ومنصة تشغيل كاملة على Odoo لمحمصة قهوة مختصة — برمجيًا وبصريًا — بدل متجر جاهز كانت كلفته 15,000 ريال سنويًا.",
+      "exp1.b2": "كتبت ست وحدات برمجية من الصفر: للدخول برمز واتساب، وبوابات دفع قيديا وتابي وتمارا، وشحن سمسا وريدبوكس — أكثر من 3 آلاف سطر بايثون، مع تكامل تاب عبر الواجهة البرمجية.",
+      "exp1.b3": "وحّدت رصيد الولاء بين الفرع ونقطة البيع والموقع، ورحّلت أرصدة العملاء من المزوّد السابق دون فقد أي عميل.",
+      "exp1.sel": "مشروع مختار: منصة حصيد",
+      "exp1.s1": "أكثر من 1000 عميل يستخدمون الموقع ونظام الرمز اليوم، فيما تدير المنصة البيع بالتجزئة والجملة واشتراك القهوة بثلاث باقات.",
+      "exp1.s2": "الموقع حي: <a href='https://haseed.net' target='_blank' rel='noopener' dir='ltr'>haseed.net</a>",
+      "exp2.avatar": "أ",
+      "exp2.company": "أكاديمية آبل للمطورين — طويق",
+      "exp2.role": "متدرب البرنامج التأسيسي للذكاء الاصطناعي",
+      "exp2.date": "يوليو – أغسطس 2025",
+      "exp2.loc": "الرياض",
+      "exp2.b1": "اختيرت ضمن 66 متدربًا من أنحاء المملكة للدفعة الأولى من البرنامج.",
+      "exp2.b2": "بنيت تطبيق ملهم ضمن فريق من أربعة: صمّمت واجهة الاستخدام وتجربتها، وربطت الواجهة البرمجية للنموذج اللغوي.",
+      "exp2.b3": "عرض الحل النهائي أمام المرشدين وممثلي أكاديمية آبل.",
+      "exp3.avatar": "س",
+      "exp3.company": "سدايا",
+      "exp3.role": "متدرب — الرؤية الحاسوبية للمطورين",
+      "exp3.date": "مارس 2026",
+      "exp3.b1": "بناء نظام تعرّف على حروف لغة الإشارة العربية من كاميرا حية ضمن عمل فريق، بتتبع 21 نقطة في اليد.",
+      "exp3.b2": "كتابة طبقة رسم عربي خاصة فوق OpenCV — المكتبة لا ترسم الحرف العربي، فتُسلَّم اللقطة إلى Pillow لإعادة وصل الحروف وترتيب اتجاهها.",
+      "skills.title": "المهارات",
+      "skills.toolsTitle": "الأدوات والمنصات",
+      "skills.toolsDesc": "الأدوات والمنصات التي أعتمد عليها في عملي.",
+      "skills.g1": "لغات البرمجة <span dir='ltr'>(Programming Languages)</span>",
+      "skills.g2": "تطوير الويب <span dir='ltr'>(Web Development)</span>",
+      "skills.g3": "الخلفية والتكاملات <span dir='ltr'>(Back-End &amp; Integrations)</span>",
+      "skills.g4": "تطبيقات الجوال <span dir='ltr'>(Mobile Development)</span>",
+      "skills.g5": "الذكاء الاصطناعي والبيانات <span dir='ltr'>(AI &amp; Data)</span>",
+      "skills.g6": "الجودة ومنهجية العمل <span dir='ltr'>(Quality &amp; Ways of Working)</span>",
+      "edu.title": "التعليم والتطوير المهني",
+      "edu.degree": "بكالوريوس في علوم الحاسب",
+      "edu.uni": "الجامعة السعودية الإلكترونية — التخرج المتوقع: يناير 2027",
+      "edu.devTitle": "التطوير المهني",
+      "edu.c1": "برنامج آبل التأسيسي للذكاء الاصطناعي",
+      "edu.c1p": "أكاديمية آبل للمطورين مع طويق",
+      "edu.c2": "الرؤية الحاسوبية للمطورين",
+      "edu.c2p": "سدايا",
+      "edu.c3": "برنامج الذكاء الاصطناعي — جارٍ",
+      "edu.c3p": "مخيم سامسونج للابتكار مع مسك",
+      "edu.langTitle": "اللغات",
+      "edu.lang1": "العربية",
+      "edu.lang1lvl": "اللغة الأم",
+      "edu.lang2": "الإنجليزية",
+      "edu.lang2lvl": "إجادة مهنية",
+      "proj.title": "أبرز المشاريع",
+      "proj.desc": "أعمال مختارة بنيت فيها الطبقة التي تصل النظام الجاهز بحاجة مستخدمه.",
+      "proj1.title": "منصة حصيد",
+      "proj1.more": "اقرأ المزيد ←",
+      "proj1.p": "متجر ومنصة تشغيل على Odoo لمحمصة مختصة في الرياض — ست وحدات مكتوبة من الصفر للدفع والشحن والدخول برمز واتساب، ورصيد ولاء موحّد عبر القنوات، وأكثر من 1000 عميل.",
+      "proj2.title": "منصة سوّاح للسياحة الثقافية",
+      "proj2.p": "منصة تربط الزائر بالتجارب الثقافية السعودية عبر ثلاث بوابات بصلاحيات منفصلة: زائر يحجز ويدفع، ومزوّد ينشر ويدير، وإدارة تعتمد وتعالج الاسترداد. مشروع تخرج ضمن فريق من أربعة، صمّمت واجهته وبنيتها.",
+      "proj2.f1": "ثلاث بوابات بصلاحيات منفصلة: زائر يحجز ويدفع، ومزوّد ينشر ويدير جدوله، وإدارة تعتمد المزوّدين وتعالج الاسترداد.",
+      "proj2.f2": "خريطة تفاعلية تكشف الوجهات، ودليل فعاليات وأنشطة ثقافية وتراثية.",
+      "proj2.f3": "تصميم بيانات بتسعة عشر كياناً يشمل سجل تدقيق وتاريخ حالات الحجز والاسترداد.",
+      "proj2.f4": "واجهة عربية أولاً مع تبديل إنجليزي كامل.",
+      "proj2.more": "اقرأ المزيد ←",
+      "proj2.s1": "الواجهة الرئيسية",
+      "proj2.s2": "بوابة المزوّد",
+      "proj2.s3": "لوحة الإحصاءات",
+      "proj2.s4": "إتمام الحجز والدفع",
+      "proj3.title": "تطبيق ملهم",
+      "proj3.more": "اقرأ المزيد ←",
+      "proj3.p": "تطبيق آيفون من برنامج آبل التأسيسي يساعد ذوي تشتّت الانتباه على تحويل الخاطر المتشابك إلى خطوة واحدة — صمّمت واجهته وتجربته، وربطت واجهة النموذج البرمجية.",
+      "proj4.title": "تعرّف لغة الإشارة العربية",
+      "proj4.more": "اقرأ المزيد ←",
+      "proj4.p": "نظام يقرأ حروف الإشارة من كاميرا حيّة ويركّبها كلمات — 21 نقطة تتبّع في اليد، وتثبيت لثانية ونصف قبل اعتماد الحرف، وطبقة رسم عربي خاصة. عمل جماعي ضمن برنامج سدايا — دوري: كتابة طبقة الرسم العربي فوق OpenCV.",
+      "proj5.title": "كَفيت",
+      "proj5.more": "اقرأ المزيد ←",
+      "proj5.p": "أداة امتثال من هاكاثون أمد — طويق ومصرف الإنماء: محرّك قواعد يحسب مهلة الرد على الشكوى وفق تعليمات البنك المركزي، وسجل تدقيق لا يقبل التلاعب، ونموذج لغوي لا يصل ردّه إلى العميل إلا بعد مروره بطبقة تحقّق في الخادم. عمل منفرد.",
+      "contact.title": "تواصل معي",
+      "contact.info": "معلومات التواصل",
+      "contact.p": "منفتح على فرص جديدة، والتعاون، وحتى النقاشات حول تطوير البرمجيات. لا تتردد في التواصل.",
+      "contact.via": "تواصل معي عبر",
+      "footer.copy": "© 2026 نايف الدوسري. جميع الحقوق محفوظة.",
+      "footer.role": "مطوّر برمجيات"
+    },
+    en: {
+      "logo": "Naif Aldosari",
+      "nav.home": "Home",
+      "nav.about": "About Me",
+      "nav.experience": "Work Experience",
+      "nav.skills": "Skills",
+      "nav.projects": "Featured Projects",
+      "nav.contact": "Contact Me",
+      "langToggle": "العربية",
+      "aria.nav": "Main navigation",
+      "aria.menu": "Open menu",
+      "aria.light": "Light mode",
+      "aria.dark": "Dark mode",
+      "hero.badge": "Software Developer",
+      "hero.name": "Naif Aldosari",
+      "hero.p": "Turning unclear needs into systems that work — from interface design to back-end integrations, with particular care for the Arabic experience and for building what off-the-shelf solutions cannot.",
+      "hero.cta1": "View My Work",
+      "hero.cta2": "Download CV",
+      "hero.scroll": "Scroll Down",
+      "about.title": "About Me",
+      "about.p": "Final-year Computer Science student and software developer with hands-on experience across e-commerce, iOS applications, and computer vision. Skilled in building modern web interfaces, developing platform modules and their integrations across payment, shipping, and authentication, integrating AI models at the application layer, and localising systems for Arabic and bilingual use.",
+      "exp.title": "Work Experience",
+      "exp1.avatar": "H",
+      "exp1.company": "Haseed",
+      "exp1.role": "Independent Developer",
+      "exp1.date": "2025 – 2026",
+      "exp1.loc": "Riyadh, Saudi Arabia",
+      "exp1.b1": "Built a complete storefront and operations platform on Odoo for a specialty coffee roastery — code and design — replacing a hosted store that cost 15,000 SAR a year.",
+      "exp1.b2": "Wrote six modules from scratch — WhatsApp OTP sign-in, Geidea, Tabby, and Tamara payment gateways, SMSA and RedBox shipping — over 3,000 lines of Python, plus Tap integration via API.",
+      "exp1.b3": "Unified the loyalty balance across branch, point of sale, and website, migrating customer balances from the previous provider without losing a customer.",
+      "exp1.sel": "Selected Project: The Haseed Platform",
+      "exp1.s1": "1,000+ customers use the site and QR system today; the platform runs retail, wholesale, and a three-tier coffee subscription.",
+      "exp1.s2": "Live at <a href='https://haseed.net' target='_blank' rel='noopener' dir='ltr'>haseed.net</a>",
+      "exp2.avatar": "A",
+      "exp2.company": "Apple Developer Academy — Tuwaiq",
+      "exp2.role": "AI Foundation Program Trainee",
+      "exp2.date": "Jul – Aug 2025",
+      "exp2.loc": "Riyadh",
+      "exp2.b1": "Selected as 1 of 66 nationwide for the program's first cohort.",
+      "exp2.b2": "Built the Mulhem app in a team of four: designed the UI/UX and integrated the language-model API.",
+      "exp2.b3": "Presented the final solution to mentors and Apple Academy representatives.",
+      "exp3.avatar": "S",
+      "exp3.company": "SDAIA",
+      "exp3.role": "Trainee — Computer Vision for Developers",
+      "exp3.date": "Mar. 2026",
+      "exp3.b1": "Built a live Arabic sign-language letter recognition system in a team, tracking 21 hand landmarks.",
+      "exp3.b2": "Wrote a custom Arabic rendering layer on top of OpenCV — the library cannot draw Arabic, so frames are handed to Pillow to reshape and reorder the letters.",
+      "skills.title": "Skills",
+      "skills.toolsTitle": "Tools &amp; Platforms",
+      "skills.toolsDesc": "The tools and platforms I rely on in my work.",
+      "skills.g1": "Programming Languages",
+      "skills.g2": "Web Development",
+      "skills.g3": "Back-End &amp; Integrations",
+      "skills.g4": "Mobile Development",
+      "skills.g5": "AI &amp; Data",
+      "skills.g6": "Quality &amp; Ways of Working",
+      "edu.title": "Education &amp; Professional Development",
+      "edu.degree": "B.Sc. in Computer Science",
+      "edu.uni": "Saudi Electronic University — Expected graduation: January 2027",
+      "edu.devTitle": "Professional Development",
+      "edu.c1": "Apple AI Foundation Program",
+      "edu.c1p": "Apple Developer Academy with Tuwaiq",
+      "edu.c2": "Computer Vision for Developers",
+      "edu.c2p": "SDAIA",
+      "edu.c3": "AI Program — In Progress",
+      "edu.c3p": "Samsung Innovation Campus with Misk",
+      "edu.langTitle": "Languages",
+      "edu.lang1": "Arabic",
+      "edu.lang1lvl": "Native",
+      "edu.lang2": "English",
+      "edu.lang2lvl": "Professional working proficiency",
+      "proj.title": "Featured Projects",
+      "proj.desc": "Selected work where the missing layer between a ready-made system and its users was built.",
+      "proj1.title": "The Haseed Platform",
+      "proj1.more": "Read more →",
+      "proj1.p": "Storefront and operations platform on Odoo for a Riyadh specialty roastery — six modules written from scratch for payments, shipping, and WhatsApp OTP sign-in, one loyalty balance across channels, 1,000+ customers.",
+      "proj2.title": "Sawah Cultural Tourism Platform",
+      "proj2.p": "A platform connecting visitors with Saudi cultural experiences through three permission-separated portals: visitors book and pay, providers publish and manage, admins approve and handle refunds. Graduation project in a team of four; I designed and built the front end.",
+      "proj2.f1": "Three portals with separate permissions: visitors book and pay, providers publish and manage schedules, admins approve providers and handle refunds.",
+      "proj2.f2": "An interactive map surfacing destinations, plus an events guide for cultural and heritage activities.",
+      "proj2.f3": "A nineteen-entity data model including an audit log, booking status history, and refunds.",
+      "proj2.f4": "Arabic-first interface with a full English toggle.",
+      "proj2.more": "Read more →",
+      "proj2.s1": "Home",
+      "proj2.s2": "Provider portal",
+      "proj2.s3": "Statistics dashboard",
+      "proj2.s4": "Checkout and payment",
+      "proj3.title": "Mulhem",
+      "proj3.more": "Read more →",
+      "proj3.p": "An iOS app from the Apple AI Foundation Program helping people with ADHD turn a tangled thought into one next step — I designed its UI/UX and integrated the model API.",
+      "proj4.title": "Arabic Sign Language Recognition",
+      "proj4.more": "Read more →",
+      "proj4.p": "A system reading sign letters from a live camera and composing them into words — 21 tracked hand landmarks, a 1.5-second hold before committing a letter, and a custom Arabic rendering layer. Team project within SDAIA's program — my part: the custom Arabic rendering layer.",
+      "proj5.title": "Kafeet",
+      "proj5.more": "Read more →",
+      "proj5.p": "A compliance tool from the Amad Hackathon — Tuwaiq × Alinma Bank: a deterministic engine computing the SAMA-mandated complaint deadline, a hash-chained audit log, and a model behind a server-side validator. Solo work.",
+      "contact.title": "Get in Touch",
+      "contact.info": "Contact Information",
+      "contact.p": "Looking for a cooperative training placement in software development, and always open to a conversation about software and design. Feel free to reach out.",
+      "contact.via": "Reach Me Via",
+      "footer.copy": "© 2026 Naif Aldosari. All rights reserved.",
+      "footer.role": "Software Developer"
+    }
+  };
+
+  var docEl = document.documentElement;
+  var themeBtn = document.getElementById("theme-btn");
+  var locale = docEl.lang === "en" ? "en" : "ar";
+
+  function save(key, value){ try{ localStorage.setItem(key, value); }catch(e){} }
+
+  function updateThemeAria(){
+    var isLight = docEl.classList.contains("light");
+    themeBtn.setAttribute("aria-label", dict[locale][isLight ? "aria.dark" : "aria.light"]);
   }
-  btn.addEventListener("click", function () {
-    setLang(root.getAttribute("data-lang") === "ar" ? "en" : "ar");
+
+  function applyLocale(l){
+    locale = l;
+    var d = dict[l];
+    docEl.lang = l;
+    docEl.dir = l === "ar" ? "rtl" : "ltr";
+    var nodes = document.querySelectorAll("[data-i18n]");
+    for(var i = 0; i < nodes.length; i++){
+      var v = d[nodes[i].getAttribute("data-i18n")];
+      if(v != null) nodes[i].innerHTML = v;
+    }
+    var ariaNodes = document.querySelectorAll("[data-i18n-aria]");
+    for(var j = 0; j < ariaNodes.length; j++){
+      var av = d[ariaNodes[j].getAttribute("data-i18n-aria")];
+      if(av != null) ariaNodes[j].setAttribute("aria-label", av);
+    }
+    updateThemeAria();
+  }
+
+  function setTheme(t, persist){
+    docEl.classList.toggle("light", t === "light");
+    if(persist) save(THEME_KEY, t);
+    updateThemeAria();
+  }
+
+  /* ---------- theme toggle ---------- */
+  themeBtn.addEventListener("click", function(){
+    setTheme(docEl.classList.contains("light") ? "dark" : "light", true);
   });
 
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var bar = document.getElementById("bar");
-    addEventListener("scroll", function () {
-      var h = document.documentElement.scrollHeight - innerHeight;
-      bar.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + "%";
-    }, { passive: true });
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll(".reveal, .stagger").forEach(function (el) { io.observe(el); });
-  } else {
-    document.querySelectorAll(".reveal, .stagger").forEach(function (el) { el.classList.add("on"); });
+  /* ---------- language toggle ---------- */
+  function toggleLocale(){
+    var next = locale === "ar" ? "en" : "ar";
+    applyLocale(next);
+    save(LOCALE_KEY, next);
   }
+  document.getElementById("lang-btn").addEventListener("click", toggleLocale);
+  document.getElementById("lang-btn-mobile").addEventListener("click", toggleLocale);
+
+  /* ---------- header border on scroll ---------- */
+  var header = document.getElementById("site-header");
+  function onScroll(){ header.classList.toggle("scrolled", window.scrollY > 10); }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- mobile menu ---------- */
+  var menu = document.getElementById("mobile-menu");
+  var menuBtn = document.getElementById("menu-btn");
+  var closing = null;
+  function openMenu(){
+    clearTimeout(closing);
+    menu.classList.remove("closing");
+    menu.classList.add("open");
+    menuBtn.setAttribute("aria-expanded", "true");
+  }
+  function closeMenu(){
+    if(!menu.classList.contains("open")) return;
+    menu.classList.add("closing");
+    menuBtn.setAttribute("aria-expanded", "false");
+    closing = setTimeout(function(){
+      menu.classList.remove("open", "closing");
+    }, 200);
+  }
+  menuBtn.addEventListener("click", function(){
+    menu.classList.contains("open") && !menu.classList.contains("closing") ? closeMenu() : openMenu();
+  });
+  var closers = menu.querySelectorAll("[data-menu-close]");
+  for(var c = 0; c < closers.length; c++){
+    closers[c].addEventListener("click", closeMenu);
+  }
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeMenu(); });
+
+  /* ---------- reveal on scroll ---------- */
+  var revealEls = [].slice.call(document.querySelectorAll(".reveal"));
+  var staticMode = /[?&]static=1/.test(location.search);
+  /* تقليل الحركة لا يُلغي الكشف: التنسيق يحوّله إلى تلاشٍ بلا إزاحة، كما في المرجع */
+  if(staticMode){
+    for(var r = 0; r < revealEls.length; r++) revealEls[r].classList.add("revealed");
+  }else{
+    /* قياس مباشر بدل IntersectionObserver: سلوك مطابق، ويُختبر تزامنياً بلا انتظار.
+       العتبة 92% من ارتفاع الإطار تقابل عتبة 0.15 في المرجع. */
+    var revealTick = function(){
+      for(var i = revealEls.length - 1; i >= 0; i--){
+        if(revealEls[i].getBoundingClientRect().top < innerHeight * 0.92){
+          revealEls[i].classList.add("revealed");
+          revealEls.splice(i, 1);          /* يخرج من القائمة فلا يُقاس ثانية */
+        }
+      }
+    };
+    revealTick();
+    addEventListener("scroll", revealTick, { passive: true });
+    addEventListener("resize", revealTick);
+  }
+  window.__revealArmed = true;   /* يُطمئن شبكة الأمان في الرأس أن الكشف يعمل */
+
+  /* ---------- cross-tab sync ---------- */
+  window.addEventListener("storage", function(e){
+    if(e.key === LOCALE_KEY && (e.newValue === "ar" || e.newValue === "en")) applyLocale(e.newValue);
+    if(e.key === THEME_KEY && (e.newValue === "light" || e.newValue === "dark")) setTheme(e.newValue, false);
+  });
+
+  /* ---------- initial sync (pre-paint script set lang/dir only) ---------- */
+  applyLocale(locale);
 })();
 </script>
 </body>
