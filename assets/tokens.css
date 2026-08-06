@@ -1,11 +1,11 @@
 /* أساس نظام التصميم: الخطوط والتوكنات والقواعد الأساسية.
    يشترك فيه index.html وصفحات المشاريع — لا تكرّر هذه القيم في أي مكان آخر. */
 /* ---------- fonts ---------- */
-@font-face{font-family:thmanyahSans;src:url(fonts/thmanyah-sans-regular.woff2)format("woff2");font-display:swap;font-weight:400;font-style:normal}
-@font-face{font-family:thmanyahSans;src:url(fonts/thmanyah-sans-medium.woff2)format("woff2");font-display:swap;font-weight:500;font-style:normal}
-@font-face{font-family:thmanyahSans;src:url(fonts/thmanyah-sans-bold.woff2)format("woff2");font-display:swap;font-weight:700;font-style:normal}
+@font-face{font-family:thmanyahSans;src:url(../fonts/thmanyah-sans-regular.woff2)format("woff2");font-display:swap;font-weight:400;font-style:normal}
+@font-face{font-family:thmanyahSans;src:url(../fonts/thmanyah-sans-medium.woff2)format("woff2");font-display:swap;font-weight:500;font-style:normal}
+@font-face{font-family:thmanyahSans;src:url(../fonts/thmanyah-sans-bold.woff2)format("woff2");font-display:swap;font-weight:700;font-style:normal}
 @font-face{font-family:"thmanyahSans Fallback";src:local(Arial);ascent-override:96.94%;descent-override:24.23%;line-gap-override:0.0%;size-adjust:103.16%}
-@font-face{font-family:Geist;src:url(fonts/geist-variable.woff2)format("woff2");font-display:swap;font-weight:100 900;font-style:normal}
+@font-face{font-family:Geist;src:url(../fonts/geist-variable.woff2)format("woff2");font-display:swap;font-weight:100 900;font-style:normal}
 @font-face{font-family:"Geist Fallback";src:local(Arial);ascent-override:95.94%;descent-override:28.16%;line-gap-override:0.0%;size-adjust:104.76%}
 
 /* ---------- tokens: dark is the default (:root), .light overrides ---------- */
